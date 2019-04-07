@@ -6,9 +6,8 @@ export default class Snake extends GameObject {
 		return this.tail[0];
 	}
 
-	init(gameworld) {
-		this.total = 0;
-		this.tail = [Vector2.getRandomPosition(gameworld)];
+	init(gameWorld) {
+		this.tail = [Vector2.getRandomPosition(gameWorld)];
 		this.direction = Vector2.getRandomDirection();
 	}
 
@@ -67,7 +66,6 @@ export default class Snake extends GameObject {
 			return obj.name === "fruit";
 		}).gameObject;
 		if (this.position.equals(fruit.position)) {
-			this.total++;
 			this.tail.push(new Vector2(this.position.x, this.position.y));
 		}
 	}
@@ -75,7 +73,6 @@ export default class Snake extends GameObject {
 	checkCollision() {
 		for (let i = 1; i < this.tail.length; i++) {
 			if (this.position.equals(this.tail[i])) {
-				this.total = 0;
 				this.tail = [this.position];
 			}
 		}

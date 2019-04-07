@@ -1,6 +1,7 @@
 import InputManager from "./input-manager.js";
 import Snake from "./snake.js";
 import Fruit from "./fruit.js";
+import UiManager from "./ui-manager.js";
 
 export default class GameLoopManager {
 	constructor() {
@@ -23,27 +24,37 @@ export default class GameLoopManager {
 				{
 					name: "fruit",
 					gameObject: new Fruit()
+				},
+				{
+					name: "ui-manager",
+					gameObject: new UiManager()
 				}
 			]
 		};
 		this.handleGameLoop = this.handleGameLoop.bind(this);
+		this.previousLevel = 1;
 	}
 
 	init() {
 		this.gameWorld.gameObjects.forEach(o => {
 			o.gameObject.init(this.gameWorld);
 		});
-		window.setInterval(this.handleGameLoop, 100);
+		this.interval = window.setInterval(this.handleGameLoop, 500);
 	}
 
 	update() {
 		this.gameWorld.gameObjects.forEach(o => {
 			o.gameObject.update(this.gameWorld);
 		});
-		const snake = this.gameWorld.gameObjects.find(obj => {
-			return obj.name === "snake";
+		const uiManager = this.gameWorld.gameObjects.find(obj => {
+			return obj.name === "ui-manager";
 		}).gameObject;
-		document.querySelector("#score").innerText = snake.total;
+		if (this.previousLevel != uiManager.level) {
+			this.previousLevel = uiManager.level;
+			window.clearInterval(this.interval);
+			const int = 500 * Math.pow(0.875, this.previousLevel - 1);
+			this.interval = window.setInterval(this.handleGameLoop, int);
+		}
 	}
 
 	draw() {
