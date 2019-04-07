@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Exercise 01</title>
+		<link rel="stylesheet" type="text/css" href="reset.css" />
+	</head>
+	<body>
+		<button id="actionButton" style="position: absolute; top: 10px; left: 10px;">
+			Test
+		</button>
+		<div id="root"></div>
+		<script>
+			window.onload = () => {
+				const canvasApp = new CanvasApp();
+
+				let actionButton = document.getElementById("actionButton");
+				actionButton.addEventListener("click", () => {
+					canvasApp.getDisplayFrequency();
+				});
+			};
+
+			class CanvasApp {
+				constructor() {
+					this.initCanvas = this.initCanvas.bind(this);
+					this.resizeCanvas = this.resizeCanvas.bind(this);
+					this.getDisplayFrequency = this.getDisplayFrequency.bind(this);
+					this.animationLoop = this.animationLoop.bind(this);
+
+					this.initCanvas();
+				}
+				initCanvas() {
+					this.displayFrequency = 0;
+					this.canvas = document.createElement("canvas");
+					const root = document.getElementById("root");
+					root.appendChild(this.canvas);
+
+					window.onresize = this.resizeCanvas;
+
+					this.resizeCanvas();
+
+					this.times = [];
+					this.fps = 0;
+					this.animationLoop();
+				}
+				resizeCanvas() {
+					this.canvas.style.width = `${window.innerWidth}px`;
+					setTimeout(() => {
+						this.canvas.style.height = `${window.innerHeight}px`;
+					}, 0);
+				}
+				animationLoop() {
+					window.requestAnimationFrame(() => {
+						const now = performance.now();
+						while (this.times.length > 0 && this.times[0] <= now - 1000) {
+							this.times.shift();
+						}
+						this.times.push(now);
+						this.fps = this.times.length;
+						this.animationLoop();
+					});
+				}
+				getDisplayFrequency() {
+					console.log(this.fps);
+				}
+			}
+		</script>
+	</body>
+</html>
