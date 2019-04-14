@@ -9,6 +9,9 @@ export default class GameLoopManager {
 		if (!this.canvasManager) {
 			throw new Error("Property error");
 		}
+		if (!this.gameObjectsManager) {
+			throw new Error("Property error");
+		}
 
 		this.dtUpdate = 1000 / 240; // Updating at 240Hz
 		this.tUpdate = performance.now();
@@ -33,14 +36,18 @@ export default class GameLoopManager {
 	}
 
 	update() {
-		//console.log("update");
+		this.gameObjectsManager.update({
+			dtUpdate: this.dtUpdate,
+			tUpdate: this.tUpdate,
+			dtRender: this.dtRender,
+			tRender: this.tRender
+		});
 	}
 
 	render() {
 		const ctx = this.canvasManager.context;
 		ctx.clearRect(0, 0, this.canvasManager.canvas.width, this.canvasManager.canvas.height);
-		ctx.font = "20px Arial";
-		ctx.fillText(`Update frequency: ${Math.round(1000 / this.dtUpdate)}Hz`, 10, 50);
-		ctx.fillText(`Render frequency: ${Math.round(1000 / this.dtRender)}Hz`, 10, 100);
+
+		this.gameObjectsManager.render();
 	}
 }
