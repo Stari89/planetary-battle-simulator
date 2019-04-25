@@ -20,12 +20,16 @@ export default class GameObjectsManager {
 		if (!this.canvasManager) {
 			throw new Error("Property error");
 		}
+		if (!this.gameStateManager) {
+			throw new Error("Property error");
+		}
 		this.gameObjects.forEach(o => {
 			o.gameObject.canvasManager = this.canvasManager;
 			o.gameObject.init();
 		});
 		this.uiObjects.forEach(o => {
 			o.gameObject.canvasManager = this.canvasManager;
+			o.gameObject.gameStateManager = this.gameStateManager;
 			o.gameObject.init();
 		});
 	}

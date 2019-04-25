@@ -20,6 +20,7 @@ export default class CanvasApp {
 		this.gameLoopManager = new GameLoopManager();
 
 		this.gameObjectsManager.canvasManager = this.canvasManager;
+		this.gameObjectsManager.gameStateManager = this.gameStateManager;
 		this.gameLoopManager.inputManager = this.inputManager;
 		this.gameLoopManager.canvasManager = this.canvasManager;
 		this.gameLoopManager.gameObjectsManager = this.gameObjectsManager;
