@@ -20,7 +20,7 @@ export default class GameStateManager {
 			throw new Error("Property error");
 		}
 
-		this.currentState = GameStates.PAUSE;
+		this.currentState = GameStates.RUNNING;
 	}
 
 	changeStateTo(newState) {
