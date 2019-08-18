@@ -1,5 +1,8 @@
 import './style.css';
+import { Injector } from './di/injector';
+import CanvasApp from './canvas-app';
 
 window.onload = () => {
-	console.log('11-di-balls');
+	const injector = new Injector();
+	injector.resolve<CanvasApp>(CanvasApp);
 };
