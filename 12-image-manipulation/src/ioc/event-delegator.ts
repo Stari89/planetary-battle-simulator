@@ -1,5 +1,5 @@
-import { LifecycleEvents } from '../lifecycle/lifecycle-events.enum';
 import { Container } from './container';
+import { LifecycleEvents } from '../lifecycle';
 
 export class EventDelegator {
 	private static _instance: EventDelegator;

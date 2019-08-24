@@ -1,6 +1,5 @@
 import { Injectable } from './ioc/injector';
-import { LifecycleEvents } from './lifecycle/lifecycle-events.enum';
-import { OnInit } from './lifecycle/lifecycle-interfaces';
+import { OnInit, LifecycleEvents } from './lifecycle';
 import { ContainerEventEmitter } from './ioc/event-delegator';
 
 @Injectable()
