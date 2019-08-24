@@ -1,52 +1,29 @@
 import 'reflect-metadata';
-import { Type } from './injectable.decorator';
-import { ContainerEventEmitter } from './container-event-emitter';
-import { LifecycleEvents } from '../lifecycle/lifecycle-events.enum';
+import { Type } from './util';
+import { Container } from './container';
 
-/**
- * Every entry point class instance starts its own dependency container.
- * Injector ensures that all decorated classes in the container are singletons.
- */
-export class Injector extends Map {
-	constructor() {
-		super();
-		this.emit = this.emit.bind(this);
+export class Injector {
+	private static _instance: Injector;
+
+	private constructor() {}
+
+	public static get instance(): Injector {
+		if (!Injector._instance) {
+			Injector._instance = new Injector();
+		}
+		return this._instance;
 	}
 
 	public resolve<T>(target: Type<any>): T {
 		const tokens = Reflect.getMetadata('design:paramtypes', target) || [];
-		const injections = tokens.map((token: Type<any>) => this.resolve<any>(token));
+		const injections: Array<any> = tokens.map((token: Type<any>) => this.resolve<any>(token));
 
-		const classInstance = this.get(target);
-		if (classInstance) {
-			return classInstance;
-		}
-
-		const newClassInstance = new target(...injections);
-
-		if (newClassInstance instanceof ContainerEventEmitter) {
-			newClassInstance.emit = this.emit;
-		}
-
-		this.set(target, newClassInstance);
-		return newClassInstance;
-	}
-
-	public release(): void {
-		for (const value of this.values()) {
-			if (typeof value['onRelease'] === 'function') {
-				value['onRelease']();
-			}
-		}
-
-		this.clear();
-	}
-
-	private emit(event: LifecycleEvents, ...params: any): void {
-		for (const value of this.values()) {
-			if (typeof value[event] === 'function') {
-				value[event](...params);
-			}
-		}
+		return Container.instance.getClassInstance(target, injections);
 	}
 }
+
+export const Injectable = (): ((target: Type<any>) => void) => {
+	return (target: Type<any>) => {
+		// do something if needed
+	};
+};

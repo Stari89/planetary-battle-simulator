@@ -1,7 +1,7 @@
-import { Injectable } from './ioc/injectable.decorator';
-import { ContainerEventEmitter } from './ioc/container-event-emitter';
+import { Injectable } from './ioc/injector';
 import { LifecycleEvents } from './lifecycle/lifecycle-events.enum';
 import { OnInit } from './lifecycle/lifecycle-interfaces';
+import { ContainerEventEmitter } from './ioc/event-delegator';
 
 @Injectable()
 export default class CanvasApp extends ContainerEventEmitter implements OnInit {
