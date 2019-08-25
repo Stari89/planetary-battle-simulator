@@ -1,27 +1,33 @@
+import { ILoopInfo } from './managers/game-loop-manager';
+
 export enum LifecycleEvents {
-	OnInit = 'onInit',
 	OnRun = 'onRun',
 	OnBeforeUpdate = 'onBeforeUpdate',
 	OnUpdate = 'onUpdate',
 	OnAfterUpdate = 'onAfterUpdate',
-	OnRender = 'onRender'
+	OnBeforeRender = 'onBeforeRender',
+	OnRender = 'onRender',
+	OnStop = 'onStop'
 }
 
-export interface OnInit {
-	onInit(param: string): void;
-}
 export interface OnRun {
 	onRun(): void;
 }
 export interface OnBeforeUpdate {
-	onBeforeUpdate(): void;
+	onBeforeUpdate(loopInfo: ILoopInfo): void;
 }
 export interface OnUpdate {
-	onUpdate(): void;
+	onUpdate(loopInfo: ILoopInfo): void;
 }
 export interface OnAfterUpdate {
-	onAfterUpdate(): void;
+	onAfterUpdate(loopInfo: ILoopInfo): void;
+}
+export interface OnBeforeRender {
+	onRender(loopInfo: ILoopInfo): void;
 }
 export interface OnRender {
-	onRender(): void;
+	onRender(loopInfo: ILoopInfo): void;
+}
+export interface OnStop {
+	onStop(): void;
 }

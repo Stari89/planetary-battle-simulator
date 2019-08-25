@@ -1,4 +1,5 @@
 import { Type } from './util';
+import Helpers from '../helpers';
 
 export class Container extends Map {
 	private static _instance: Container;
@@ -15,13 +16,19 @@ export class Container extends Map {
 	}
 
 	public getClassInstance<T>(target: Type<any>, injections: Array<any>): T {
-		const classInstance = this.get(target);
-		if (classInstance) {
-			return classInstance;
+		if (target.prototype.isIocService) {
+			const classInstance = this.get(target);
+			if (classInstance) {
+				return classInstance;
+			}
 		}
 
 		const newClassInstance = new target(...injections);
-		this.set(target, newClassInstance);
+		if (target.prototype.isIocService) {
+			this.set(target, newClassInstance);
+		} else {
+			this.set(Helpers.generateRandomUniqueId(this), newClassInstance);
+		}
 		return newClassInstance;
 	}
 

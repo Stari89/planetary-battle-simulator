@@ -23,7 +23,11 @@ export class Injector {
 }
 
 export const Injectable = (): ((target: Type<any>) => void) => {
-	return (target: Type<any>) => {
-		// do something if needed
+	return (target: Type<any>) => {};
+};
+
+export const Service = () => {
+	return (constructor: Function) => {
+		constructor.prototype.isIocService = true;
 	};
 };

@@ -1,19 +1,18 @@
-import { Injectable } from './ioc/injector';
-import { OnInit, LifecycleEvents } from './lifecycle';
-import { ContainerEventEmitter } from './ioc/event-delegator';
+import { Injectable, Service } from './ioc/injector';
+import GameLoopManager from './managers/game-loop-manager';
+import InputManager from './managers/input-manager';
+import CanvasManager from './managers/canvas-manager';
+import GameObjectsManager from './managers/game-objects-manager';
 
+@Service()
 @Injectable()
-export default class CanvasApp extends ContainerEventEmitter implements OnInit {
-	constructor() {
-		super();
-		console.log('Hello, World!');
-	}
-
-	onInit(param1: string): void {
-		console.log(param1);
-	}
-
-	someStuff(): void {
-		this.emit(LifecycleEvents.OnInit, 'test', 'pest');
+export default class CanvasApp {
+	constructor(
+		private gameLoopManager: GameLoopManager,
+		private inputManager: InputManager,
+		private canvasManager: CanvasManager,
+		private gameObjectsManager: GameObjectsManager
+	) {
+		gameLoopManager.run();
 	}
 }
