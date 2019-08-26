@@ -14,6 +14,6 @@ export default class MouseStateLabel extends Label implements OnUpdate {
 	}
 
 	public onUpdate(loopInfo: ILoopInfo) {
-		this.text = `Mouse buttons pressed: [${this.inputManager.MousePressedButtons}], Mouse position: ${this.inputManager.MousePosition}`;
+		this.text = `Mouse buttons pressed: [${this.inputManager.MouseState.pressedButtons}], Mouse position: ${this.inputManager.MouseState.position}`;
 	}
 }

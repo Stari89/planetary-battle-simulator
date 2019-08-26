@@ -4,6 +4,7 @@ import PressedKeysLabel from '../game-objects/pressed-keys-label';
 import Label from '../game-objects/label';
 import Vector2 from '../vector-2';
 import MouseStateLabel from '../game-objects/mouse-state-label';
+import MouseScrollLabel from '../game-objects/mouse-scroll-label';
 
 export interface GameObjectItem {
 	id: string;
@@ -19,5 +20,6 @@ export default class GameObjectsManager {
 		this.gameObjectItems = [];
 		const pressedkeysLabel = gameObjectFactory.constructGameObject<PressedKeysLabel>(PressedKeysLabel);
 		const mouseStateLabel = gameObjectFactory.constructGameObject<MouseStateLabel>(MouseStateLabel);
+		const mouseScrollLabel = gameObjectFactory.constructGameObject<MouseScrollLabel>(MouseScrollLabel);
 	}
 }

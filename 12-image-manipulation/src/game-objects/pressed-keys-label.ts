@@ -14,6 +14,6 @@ export default class PressedKeysLabel extends Label implements OnUpdate {
 	}
 
 	public onUpdate(loopInfo: ILoopInfo) {
-		this.text = `Pressed keys: [${this.inputManager.PressedKeys.toString()}]`;
+		this.text = `Pressed keys: [${this.inputManager.KeyboardState.pressedKeys.toString()}]`;
 	}
 }
