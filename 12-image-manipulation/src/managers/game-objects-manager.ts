@@ -1,25 +1,27 @@
-import { Injectable, Injector, Service } from '../ioc/injector';
+import { Injectable, Injector, System } from '../ioc/injector';
 import GameObject, { GameObjectFactory } from '../game-objects/game-object';
-import PressedKeysLabel from '../game-objects/pressed-keys-label';
-import Label from '../game-objects/label';
+import Label from '../entities/label';
+import Transform from '../components/transform';
 import Vector2 from '../vector-2';
-import MouseStateLabel from '../game-objects/mouse-state-label';
-import MouseScrollLabel from '../game-objects/mouse-scroll-label';
+import LabelText from '../components/text';
 
 export interface GameObjectItem {
 	id: string;
 	gameObject: GameObject;
 }
 
-@Service()
+@System()
 @Injectable()
 export default class GameObjectsManager {
-	private gameObjectItems: Array<GameObjectItem>;
+	public readonly gameObjectItems: Array<any>;
 
 	constructor(gameObjectFactory: GameObjectFactory) {
-		this.gameObjectItems = [];
-		const pressedkeysLabel = gameObjectFactory.constructGameObject<PressedKeysLabel>(PressedKeysLabel);
-		const mouseStateLabel = gameObjectFactory.constructGameObject<MouseStateLabel>(MouseStateLabel);
-		const mouseScrollLabel = gameObjectFactory.constructGameObject<MouseScrollLabel>(MouseScrollLabel);
+		// this.gameObjectItems = ['asdf', 'asdf', new Label(null, null)];
+		this.gameObjectItems = [
+			new Label(
+				new Transform(new Vector2(10, 40), new Vector2(1, 1), 0),
+				new LabelText('Test', 'black', '20px Arial')
+			)
+		];
 	}
 }

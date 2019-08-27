@@ -1,4 +1,4 @@
-import { Injectable, Service } from '../ioc/injector';
+import { Injectable, System } from '../ioc/injector';
 import { OnAfterUpdate } from '../lifecycle';
 import Vector2 from '../vector-2';
 
@@ -16,7 +16,7 @@ export interface IMouseState {
 	scrollDelta: Vector2;
 }
 
-@Service()
+@System()
 @Injectable()
 export default class InputManager implements OnAfterUpdate {
 	// Fields

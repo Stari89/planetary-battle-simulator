@@ -26,7 +26,15 @@ export const Injectable = (): ((target: Type<any>) => void) => {
 	return (target: Type<any>) => {};
 };
 
-export const Service = () => {
+export const Component = () => {
+	return (constructor: Type<any>) => {};
+};
+
+export const Entity = () => {
+	return (constructor: Type<any>) => {};
+};
+
+export const System = () => {
 	return (constructor: Function) => {
 		constructor.prototype.isIocService = true;
 	};

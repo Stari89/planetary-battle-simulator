@@ -1,10 +1,10 @@
 import { Type } from '../ioc/util';
-import { Injectable, Injector, Service } from '../ioc/injector';
+import { Injectable, Injector, System } from '../ioc/injector';
 import Label from './label';
 
 export default class GameObject {}
 
-@Service()
+@System()
 @Injectable()
 export class GameObjectFactory {
 	constructor() {}
