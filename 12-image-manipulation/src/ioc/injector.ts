@@ -33,29 +33,6 @@ export const Component = (tag: string) => {
 	};
 };
 
-export const Entity = () => {
-	return <T extends { new (...args: any[]): any }>(constructor: T) => {
-		return class extends constructor {
-			private tags: string[];
-			get Tags(): string[] {
-				if (!!this.tags) {
-					return this.tags;
-				}
-				const tags: string[] = [];
-				const keys = Object.keys(this);
-				keys.forEach(key => {
-					const tag = this[key].tag;
-					if (!!tag) {
-						tags.push(tag);
-					}
-				});
-				this.tags = tags;
-				return tags;
-			}
-		};
-	};
-};
-
 export const System = () => {
 	return (constructor: Function) => {
 		constructor.prototype.isIocService = true;

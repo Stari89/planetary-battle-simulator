@@ -1,27 +1,29 @@
-import { Injectable, Injector, System } from '../ioc/injector';
-import GameObject, { GameObjectFactory } from '../game-objects/game-object';
+import { Injectable, System } from '../ioc/injector';
 import Label from '../entities/label';
 import Transform from '../components/transform';
 import Vector2 from '../vector-2';
 import LabelText from '../components/label-text';
-
-export interface GameObjectItem {
-	id: string;
-	gameObject: GameObject;
-}
+import Entity from '../entities/entity';
+import PressedKeysLabel from '../entities/pressed-keys-label';
+import KeyboardInput from '../components/keyboard-input';
 
 @System()
 @Injectable()
 export default class GameObjectsManager {
-	public readonly gameObjectItems: Array<any>;
+	public readonly gameObjectItems: Array<Entity>;
 
-	constructor(gameObjectFactory: GameObjectFactory) {
-		// this.gameObjectItems = ['asdf', 'asdf', new Label(null, null)];
+	constructor() {
 		this.gameObjectItems = [
 			new Label(
 				new Transform(new Vector2(10, 40), new Vector2(1, 1), 0),
 				new LabelText('Test Pest', 'black', '20px Arial')
+			),
+			new PressedKeysLabel(
+				new Transform(new Vector2(10, 80), new Vector2(1, 1), 0),
+				new LabelText('asdf', 'black', '20px Arial'),
+				new KeyboardInput()
 			)
 		];
+		console.log(this.gameObjectItems[0]);
 	}
 }

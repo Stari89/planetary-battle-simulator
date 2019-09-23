@@ -1,8 +1,9 @@
-import { Entity } from '../ioc/injector';
 import Transform from '../components/transform';
 import LabelText from '../components/label-text';
+import Entity from './entity';
 
-@Entity()
-export default class Label {
-	constructor(public transform: Transform, public labelText: LabelText) {}
+export default class Label extends Entity {
+	constructor(public transform: Transform, public labelText: LabelText) {
+		super([{ name: 'transform', property: 'transform' }, { name: 'label-text', property: 'labelText' }]);
+	}
 }
