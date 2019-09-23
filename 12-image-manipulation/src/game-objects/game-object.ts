@@ -1,6 +1,5 @@
 import { Type } from '../ioc/util';
 import { Injectable, Injector, System } from '../ioc/injector';
-import Label from './label';
 
 export default class GameObject {}
 

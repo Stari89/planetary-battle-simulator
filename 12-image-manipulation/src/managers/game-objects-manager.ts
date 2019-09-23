@@ -3,7 +3,7 @@ import GameObject, { GameObjectFactory } from '../game-objects/game-object';
 import Label from '../entities/label';
 import Transform from '../components/transform';
 import Vector2 from '../vector-2';
-import LabelText from '../components/text';
+import LabelText from '../components/label-text';
 
 export interface GameObjectItem {
 	id: string;
@@ -20,7 +20,7 @@ export default class GameObjectsManager {
 		this.gameObjectItems = [
 			new Label(
 				new Transform(new Vector2(10, 40), new Vector2(1, 1), 0),
-				new LabelText('Test', 'black', '20px Arial')
+				new LabelText('Test Pest', 'black', '20px Arial')
 			)
 		];
 	}

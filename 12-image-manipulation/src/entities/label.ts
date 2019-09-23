@@ -1,6 +1,6 @@
 import { Entity } from '../ioc/injector';
 import Transform from '../components/transform';
-import LabelText from '../components/text';
+import LabelText from '../components/label-text';
 
 @Entity()
 export default class Label {
