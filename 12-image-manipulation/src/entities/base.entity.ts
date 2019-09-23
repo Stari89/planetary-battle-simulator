@@ -1,4 +1,6 @@
-export default class Entity {
+import Helpers from '../helpers';
+
+export default class BaseEntity {
 	constructor(private tags: ITag[]) {}
 	public get Tags(): ITag[] {
 		return this.tags;
@@ -8,12 +10,8 @@ export default class Entity {
 		if (!tag || !tag.property) {
 			return null;
 		}
-		return getEntityProperty(this, tag.property);
+		return Helpers.getProperty(this, tag.property);
 	}
-}
-
-export function getEntityProperty(obj: any, key: string) {
-	return obj[key];
 }
 
 export interface ITag {

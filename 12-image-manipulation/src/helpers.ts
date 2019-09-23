@@ -15,4 +15,8 @@ export default class Helpers {
 		} while (!!map.get(id));
 		return id;
 	}
+
+	public static getProperty(obj: any, key: string) {
+		return obj[key];
+	}
 }
