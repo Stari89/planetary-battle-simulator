@@ -1,8 +1,7 @@
-import { Injectable, System } from '../ioc/injector';
+import { Injectable } from '../ioc/injector';
 import { ContainerEventEmitter } from '../ioc/event-delegator';
 import { LifecycleEvents } from '../lifecycle';
 
-@System()
 @Injectable()
 export default class GameLoopManager extends ContainerEventEmitter {
 	private readonly tUpdate: number = 1000 / 240;

@@ -22,19 +22,7 @@ export class Injector {
 }
 
 export const Injectable = (): ((target: Type<any>) => void) => {
-	return (target: Type<any>) => {};
-};
-
-export const Component = (tag: string) => {
-	return <T extends { new (...args: any[]): {} }>(constructor: T) => {
-		return class extends constructor {
-			tag = tag;
-		};
-	};
-};
-
-export const System = () => {
-	return (constructor: Function) => {
-		constructor.prototype.isIocService = true;
+	return (target: Type<any>) => {
+		target.prototype.isIocService = true;
 	};
 };

@@ -1,4 +1,4 @@
-import { System, Injectable } from '../ioc/injector';
+import { Injectable } from '../ioc/injector';
 import { OnUpdate } from '../lifecycle';
 import { ILoopInfo } from '../managers/game-loop.manager';
 import GameObjectsManager from '../managers/game-objects.manager';
@@ -7,7 +7,6 @@ import BaseEntity from '../entities/base.entity';
 import KeyboardInputComponent from '../components/keyboard-input.component';
 import InputManager from '../managers/input.manager';
 
-@System()
 @Injectable()
 export default class PressedKeysLabelSystem implements OnUpdate {
 	constructor(private gameObjectsManager: GameObjectsManager, private inputManager: InputManager) {}

@@ -1,4 +1,4 @@
-import { System, Injectable } from '../ioc/injector';
+import { Injectable } from '../ioc/injector';
 import { OnRender } from '../lifecycle';
 import { ILoopInfo } from '../managers/game-loop.manager';
 import GameObjectsManager from '../managers/game-objects.manager';
@@ -7,7 +7,6 @@ import BaseEntity from '../entities/base.entity';
 import TransformComponent from '../components/transform.component';
 import LabelTextComponent from '../components/label-text.component';
 
-@System()
 @Injectable()
 export default class LabelSystem implements OnRender {
 	constructor(private gameObjectsManager: GameObjectsManager, private canvasManager: CanvasManager) {}

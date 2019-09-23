@@ -1,4 +1,4 @@
-import { Injectable, System } from './ioc/injector';
+import { Injectable } from './ioc/injector';
 import GameLoopManager from './managers/game-loop.manager';
 import InputManager from './managers/input.manager';
 import CanvasManager from './managers/canvas.manager';
@@ -6,7 +6,6 @@ import GameObjectsManager from './managers/game-objects.manager';
 import LabelSystem from './systems/label.system';
 import PressedKeysLabelSystem from './systems/pressed-keys-label.system';
 
-@System()
 @Injectable()
 export default class CanvasApp {
 	constructor(

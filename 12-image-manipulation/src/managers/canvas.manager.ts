@@ -1,8 +1,7 @@
-import { Injectable, System } from '../ioc/injector';
+import { Injectable } from '../ioc/injector';
 import Vector2 from '../vector-2';
 import { OnUpdate } from '../lifecycle';
 
-@System()
 @Injectable()
 export default class CanvasManager implements OnUpdate {
 	// Fields
