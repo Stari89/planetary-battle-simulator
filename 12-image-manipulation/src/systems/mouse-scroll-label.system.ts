@@ -3,7 +3,7 @@ import { OnUpdate } from '../lifecycle';
 import { ILoopInfo } from '../managers/game-loop.manager';
 import GameObjectsManager from '../managers/game-objects.manager';
 import LabelTextComponent from '../components/label-text.component';
-import BaseEntity from '../entities/base.entity';
+import BaseEntity, { Tags } from '../entities/base.entity';
 import InputManager from '../managers/input.manager';
 import MouseScrollComponent from '../components/mouse-scroll.component';
 import Vector2 from '../vector-2';
@@ -18,8 +18,8 @@ export default class MouseScrollLabelSystem implements OnUpdate {
 
 	public onUpdate(loopInfo: ILoopInfo) {
 		this.gameObjectsManager.gameObjectItems.forEach((entity: BaseEntity) => {
-			const labelText: LabelTextComponent = entity.getProperty('label-text');
-			const mouseScroll: MouseScrollComponent = entity.getProperty('mouse-scroll');
+			const labelText: LabelTextComponent = entity.getProperty(Tags.LabelText);
+			const mouseScroll: MouseScrollComponent = entity.getProperty(Tags.MouseScroll);
 			if (!labelText || !mouseScroll) return;
 
 			if (!this.inputManager.MouseState.scrollDelta.equals(new Vector2(0, 0))) {

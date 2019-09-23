@@ -3,7 +3,7 @@ import { OnRender } from '../lifecycle';
 import { ILoopInfo } from '../managers/game-loop.manager';
 import GameObjectsManager from '../managers/game-objects.manager';
 import CanvasManager from '../managers/canvas.manager';
-import BaseEntity from '../entities/base.entity';
+import BaseEntity, { Tags } from '../entities/base.entity';
 import TransformComponent from '../components/transform.component';
 import LabelTextComponent from '../components/label-text.component';
 
@@ -13,8 +13,8 @@ export default class LabelSystem implements OnRender {
 
 	public onRender(loopInfo: ILoopInfo) {
 		this.gameObjectsManager.gameObjectItems.forEach((entity: BaseEntity) => {
-			const transform: TransformComponent = entity.getProperty('transform');
-			const labelText: LabelTextComponent = entity.getProperty('label-text');
+			const transform: TransformComponent = entity.getProperty(Tags.Transform);
+			const labelText: LabelTextComponent = entity.getProperty(Tags.LabelText);
 			if (!transform || !labelText) return;
 
 			const ctx = this.canvasManager.Context;

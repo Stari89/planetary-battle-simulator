@@ -1,6 +1,6 @@
 import TransformComponent from '../components/transform.component';
 import LabelTextComponent from '../components/label-text.component';
-import BaseEntity from './base.entity';
+import BaseEntity, { Tags } from './base.entity';
 import MouseScrollComponent from '../components/mouse-scroll.component';
 
 export default class MouseScrollLabelEntity extends BaseEntity {
@@ -10,9 +10,9 @@ export default class MouseScrollLabelEntity extends BaseEntity {
 		public mouseScroll: MouseScrollComponent
 	) {
 		super([
-			{ name: 'transform', property: 'transform' },
-			{ name: 'label-text', property: 'labelText' },
-			{ name: 'mouse-scroll', property: 'mouseScroll' }
+			{ name: Tags.Transform, property: 'transform' },
+			{ name: Tags.LabelText, property: 'labelText' },
+			{ name: Tags.MouseScroll, property: 'mouseScroll' }
 		]);
 	}
 }

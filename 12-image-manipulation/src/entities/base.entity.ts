@@ -15,6 +15,14 @@ export default class BaseEntity {
 }
 
 export interface ITag {
-	name: string;
+	name: Tags;
 	property: string;
+}
+
+export enum Tags {
+	Transform = 'transform',
+	LabelText = 'label-text',
+	MouseState = 'mouse-state',
+	MouseScroll = 'mouse-scroll',
+	PressedKeys = 'pressed-keys'
 }

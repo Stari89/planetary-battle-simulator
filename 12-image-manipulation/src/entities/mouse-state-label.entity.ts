@@ -1,7 +1,7 @@
 import TransformComponent from '../components/transform.component';
 import LabelTextComponent from '../components/label-text.component';
 import MouseStateComponent from '../components/mouse-state.component';
-import BaseEntity from './base.entity';
+import BaseEntity, { Tags } from './base.entity';
 
 export default class MouseStateLabelEntity extends BaseEntity {
 	constructor(
@@ -10,9 +10,9 @@ export default class MouseStateLabelEntity extends BaseEntity {
 		public mouseState: MouseStateComponent
 	) {
 		super([
-			{ name: 'transform', property: 'transform' },
-			{ name: 'label-text', property: 'labelText' },
-			{ name: 'mouse-state', property: 'mouseState' }
+			{ name: Tags.Transform, property: 'transform' },
+			{ name: Tags.LabelText, property: 'labelText' },
+			{ name: Tags.MouseState, property: 'mouseState' }
 		]);
 	}
 }
