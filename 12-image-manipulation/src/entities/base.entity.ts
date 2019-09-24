@@ -25,5 +25,6 @@ export enum Tags {
     MouseScroll = 'mouse-scroll',
     MouseState = 'mouse-state',
     PressedKeys = 'pressed-keys',
-    Transform = 'transform'
+    Transform = 'transform',
+    TouchState = 'touch-state'
 }

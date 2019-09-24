@@ -13,6 +13,8 @@ import MouseStateComponent from '../components/mouse-state.component';
 import SpriteEntity from '../entities/sprite.entity';
 import Kitty from '../assets/Kitty.jpg';
 import ImageComponent from '../components/image.component';
+import TouchStateLabelEntity from '../entities/touch-state-label.entity';
+import TouchStateComponent from '../components/touch-state.component';
 
 @Injectable()
 export default class GameObjectsManager {
@@ -42,8 +44,13 @@ export default class GameObjectsManager {
                 new LabelTextComponent('', 'black', '20px Arial'),
                 new MouseStateComponent()
             ),
+            new TouchStateLabelEntity(
+                new TransformComponent(new Vector2(10, 200), new Vector2(1, 1), 0),
+                new LabelTextComponent('', 'black', '20px Arial'),
+                new TouchStateComponent()
+            ),
             new SpriteEntity(
-                new TransformComponent(new Vector2(10, 200), new Vector2(300, 300), 0),
+                new TransformComponent(new Vector2(10, 240), new Vector2(300, 300), 0),
                 new ImageComponent(image)
             )
         ];
