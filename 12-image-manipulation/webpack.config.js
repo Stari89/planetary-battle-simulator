@@ -30,7 +30,8 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Typescript Test'
+            title: '12-image-manipulation',
+            meta: { viewport: 'width=device-width, user-scalable=no' }
         })
     ],
     watch: true
