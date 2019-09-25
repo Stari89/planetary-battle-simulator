@@ -2,47 +2,47 @@ import { Type } from './util';
 import Helpers from '../helpers';
 
 export class Container extends Map {
-	private static _instance: Container;
+    private static _instance: Container;
 
-	private constructor() {
-		super();
-	}
+    private constructor() {
+        super();
+    }
 
-	public static get instance(): Container {
-		if (!Container._instance) {
-			Container._instance = new Container();
-		}
-		return this._instance;
-	}
+    public static get instance(): Container {
+        if (!Container._instance) {
+            Container._instance = new Container();
+        }
+        return this._instance;
+    }
 
-	public getClassInstance<T>(target: Type<any>, injections: Array<any>): T {
-		if (target.prototype.isIocService) {
-			const classInstance = this.get(target);
-			if (classInstance) {
-				return classInstance;
-			}
-		}
+    public getClassInstance<T>(target: Type<any>, injections: Array<any>): T {
+        if (target.prototype.isSingleton) {
+            const classInstance = this.get(target);
+            if (classInstance) {
+                return classInstance;
+            }
+        }
 
-		const newClassInstance = new target(...injections);
-		if (target.prototype.isIocService) {
-			this.set(target, newClassInstance);
-		} else {
-			this.set(Helpers.generateRandomUniqueId(this), newClassInstance);
-		}
-		return newClassInstance;
-	}
+        const newClassInstance = new target(...injections);
+        if (target.prototype.isSingleton) {
+            this.set(target, newClassInstance);
+        } else {
+            this.set(Helpers.generateRandomUniqueId(this), newClassInstance);
+        }
+        return newClassInstance;
+    }
 
-	public release(): void {
-		for (const value of this.values()) {
-			if (typeof value['onRelease'] === 'function') {
-				value['onRelease']();
-			}
-		}
+    public release(): void {
+        for (const value of this.values()) {
+            if (typeof value['onRelease'] === 'function') {
+                value['onRelease']();
+            }
+        }
 
-		this.clear();
-	}
+        this.clear();
+    }
 }
 
 export interface OnRelease {
-	onRelease(): void;
+    onRelease(): void;
 }
