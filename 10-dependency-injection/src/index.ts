@@ -1,31 +1,31 @@
 import './style.css';
-import { Service } from './service-decorator';
+import { Injectable } from './injectable-decorator';
 import { Injector } from './injector';
 
-@Service()
+@Injectable()
 class Foo {
-	doFooStuff() {
-		console.log('foo');
-	}
+    doFooStuff() {
+        console.log('foo');
+    }
 }
 
-@Service()
+@Injectable()
 class Bar {
-	constructor(public foo: Foo) {}
+    constructor(public foo: Foo) {}
 
-	doBarStuff() {
-		console.log('bar');
-	}
+    doBarStuff() {
+        console.log('bar');
+    }
 }
 
-@Service()
+@Injectable()
 class Foobar {
-	constructor(public foo: Foo, public bar: Bar) {}
+    constructor(public foo: Foo, public bar: Bar) {}
 }
 
 window.onload = () => {
-	const foobar = Injector.resolve<Foobar>(Foobar);
-	foobar.bar.doBarStuff();
-	foobar.foo.doFooStuff();
-	foobar.bar.foo.doFooStuff();
+    const foobar = Injector.resolve<Foobar>(Foobar);
+    foobar.bar.doBarStuff();
+    foobar.foo.doFooStuff();
+    foobar.bar.foo.doFooStuff();
 };
