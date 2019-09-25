@@ -3,7 +3,7 @@ import { ContainerEventEmitter } from '../ioc/event-delegator';
 import { LifecycleEvents } from '../lifecycle';
 
 @Injectable()
-export default class GameLoopManager extends ContainerEventEmitter {
+export default class GameLoopProvider extends ContainerEventEmitter {
     private loopInfo: ILoopInfo;
     private breakLoop: boolean;
 

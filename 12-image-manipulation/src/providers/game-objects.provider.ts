@@ -17,7 +17,7 @@ import TouchStateLabelEntity from '../entities/touch-state-label.entity';
 import TouchStateComponent from '../components/touch-state.component';
 
 @Injectable()
-export default class GameObjectsManager {
+export default class GameObjectsProvider {
     public readonly gameObjectItems: Array<BaseEntity>;
 
     constructor() {

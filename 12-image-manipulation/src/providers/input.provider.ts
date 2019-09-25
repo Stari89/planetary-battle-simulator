@@ -28,7 +28,7 @@ export interface ITouch {
 }
 
 @Injectable()
-export default class InputManager implements OnAfterUpdate {
+export default class InputProvider implements OnAfterUpdate {
     // Fields
     private keyboardState: IKeyboardState;
     private mouseState: IMouseState;

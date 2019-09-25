@@ -1,15 +1,15 @@
 import { OnUpdate } from '../lifecycle';
-import GameObjectsManager from '../managers/game-objects.manager';
-import InputManager from '../managers/input.manager';
+import GameObjectsProvider from '../providers/game-objects.provider';
+import InputProvider from '../providers/input.provider';
 import { Injectable } from '../ioc/injector';
-import { ILoopInfo } from '../managers/game-loop.manager';
+import { ILoopInfo } from '../providers/game-loop.provider';
 import BaseEntity, { Tags } from '../entities/base.entity';
 import LabelTextComponent from '../components/label-text.component';
 import TouchStateComponent from '../components/touch-state.component';
 
 @Injectable()
 export default class TouchStateLabelSystem implements OnUpdate {
-    constructor(private gameObjectsManager: GameObjectsManager, private inputManager: InputManager) {}
+    constructor(private gameObjectsManager: GameObjectsProvider, private inputManager: InputProvider) {}
 
     public onUpdate(loopInfo: ILoopInfo) {
         this.gameObjectsManager.gameObjectItems.forEach((entity: BaseEntity) => {
