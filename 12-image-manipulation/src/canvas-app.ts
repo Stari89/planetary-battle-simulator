@@ -9,21 +9,23 @@ import MouseScrollLabelSystem from './systems/mouse-scroll-label.system';
 import MouseStateLabelSystem from './systems/mouse-state-label.system';
 import ImageTransformSystem from './systems/image-transform.system';
 import TouchStateLabelSystem from './systems/touch-state-label.system';
+import ManipulationSystem from './systems/manipulation.system';
 
 @Injectable()
 export default class CanvasApp {
-    constructor(
-        private gameLoopManager: GameLoopProvider,
-        private inputManager: InputProvider,
-        private canvasManager: CanvasProvider,
-        private gameObjectsManager: GameObjectsProvider,
-        private labelSystem: LabelSystem,
-        private pressedKeysLabelSystem: PressedKeysLabelSystem,
-        private mouseScrollLabelSystem: MouseScrollLabelSystem,
-        private mouseStateLabelSystem: MouseStateLabelSystem,
-        private imageTransformSystem: ImageTransformSystem,
-        private touchStateLabelSystem: TouchStateLabelSystem
-    ) {
-        gameLoopManager.run();
-    }
+	constructor(
+		private gameLoopManager: GameLoopProvider,
+		private inputManager: InputProvider,
+		private canvasManager: CanvasProvider,
+		private gameObjectsManager: GameObjectsProvider,
+		private labelSystem: LabelSystem,
+		private pressedKeysLabelSystem: PressedKeysLabelSystem,
+		private mouseScrollLabelSystem: MouseScrollLabelSystem,
+		private mouseStateLabelSystem: MouseStateLabelSystem,
+		private imageTransformSystem: ImageTransformSystem,
+		private touchStateLabelSystem: TouchStateLabelSystem,
+		private manipulationSystem: ManipulationSystem
+	) {
+		gameLoopManager.run();
+	}
 }

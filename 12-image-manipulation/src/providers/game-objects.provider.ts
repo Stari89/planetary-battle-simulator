@@ -15,44 +15,51 @@ import Kitty from '../assets/Kitty.jpg';
 import ImageComponent from '../components/image.component';
 import TouchStateLabelEntity from '../entities/touch-state-label.entity';
 import TouchStateComponent from '../components/touch-state.component';
+import ManipulatedImageEntity from '../entities/manipulated-image.entity';
+import ManipulatedComponent from '../components/manipulated.component';
 
 @Injectable()
 export default class GameObjectsProvider {
-    public readonly gameObjectItems: Array<BaseEntity>;
+	public readonly gameObjectItems: Array<BaseEntity>;
 
-    constructor() {
-        const image = new Image();
-        image.src = Kitty;
+	constructor() {
+		const image = new Image();
+		image.src = Kitty;
 
-        this.gameObjectItems = [
-            new LabelEntity(
-                new TransformComponent(new Vector2(10, 40), new Vector2(1, 1), 0),
-                new LabelTextComponent('Test Label', 'black', '20px Arial')
-            ),
-            new PressedKeysLabelEntity(
-                new TransformComponent(new Vector2(10, 80), new Vector2(1, 1), 0),
-                new LabelTextComponent('', 'black', '20px Arial'),
-                new PressedKeysComponent()
-            ),
-            new MouseScrollLabelEntity(
-                new TransformComponent(new Vector2(10, 120), new Vector2(1, 1), 0),
-                new LabelTextComponent('', 'black', '20px Arial'),
-                new MouseScrollComponent()
-            ),
-            new MouseStateLabelEntity(
-                new TransformComponent(new Vector2(10, 160), new Vector2(1, 1), 0),
-                new LabelTextComponent('', 'black', '20px Arial'),
-                new MouseStateComponent()
-            ),
-            new TouchStateLabelEntity(
-                new TransformComponent(new Vector2(10, 200), new Vector2(1, 1), 0),
-                new LabelTextComponent('', 'black', '20px Arial'),
-                new TouchStateComponent()
-            ),
-            new SpriteEntity(
-                new TransformComponent(new Vector2(10, 240), new Vector2(300, 300), 0),
-                new ImageComponent(image)
-            )
-        ];
-    }
+		this.gameObjectItems = [
+			// new LabelEntity(
+			// 	new TransformComponent(new Vector2(10, 40), new Vector2(1, 1), 0),
+			// 	new LabelTextComponent('Test Label', 'black', '20px Arial')
+			// ),
+			// new PressedKeysLabelEntity(
+			// 	new TransformComponent(new Vector2(10, 80), new Vector2(1, 1), 0),
+			// 	new LabelTextComponent('', 'black', '20px Arial'),
+			// 	new PressedKeysComponent()
+			// ),
+			// new MouseScrollLabelEntity(
+			// 	new TransformComponent(new Vector2(10, 120), new Vector2(1, 1), 0),
+			// 	new LabelTextComponent('', 'black', '20px Arial'),
+			// 	new MouseScrollComponent()
+			// ),
+			// new MouseStateLabelEntity(
+			// 	new TransformComponent(new Vector2(10, 160), new Vector2(1, 1), 0),
+			// 	new LabelTextComponent('', 'black', '20px Arial'),
+			// 	new MouseStateComponent()
+			// ),
+			// new TouchStateLabelEntity(
+			// 	new TransformComponent(new Vector2(10, 200), new Vector2(1, 1), 0),
+			// 	new LabelTextComponent('', 'black', '20px Arial'),
+			// 	new TouchStateComponent()
+			// ),
+			// new SpriteEntity(
+			// 	new TransformComponent(new Vector2(10, 240), new Vector2(300, 300), 0),
+			// 	new ImageComponent(image)
+			// ),
+			new ManipulatedImageEntity(
+				new TransformComponent(new Vector2(50, 50), new Vector2(800, 800), 0),
+				new ImageComponent(image),
+				new ManipulatedComponent()
+			)
+		];
+	}
 }
