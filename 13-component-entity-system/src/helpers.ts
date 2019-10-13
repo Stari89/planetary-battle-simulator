@@ -12,7 +12,7 @@ export default class Helpers {
 		let id = '';
 		do {
 			id += Helpers.generateRandomString(1);
-		} while (!!map.get(id));
+		} while (map.has(id));
 		return id;
 	}
 

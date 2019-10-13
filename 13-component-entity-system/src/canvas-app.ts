@@ -2,14 +2,26 @@ import { Injectable } from './ioc/injector';
 import GameLoopProvider from './providers/game-loop.provider';
 import InputProvider from './providers/input.provider';
 import CanvasProvider from './providers/canvas.provider';
+import SceneProvider from './providers/scene.provider';
+import EntityContainer from './entity/entity-container';
+import EntityProvider from './entity/entity.provider';
+import SpriteSystem from './systems/sprite.system';
+import GravitySystem from './systems/gravity.system';
+import PlanetFactory from './entity/planet-factory';
 
 @Injectable()
 export default class CanvasApp {
 	constructor(
-		private gameLoopManager: GameLoopProvider,
-		private inputManager: InputProvider,
-		private canvasManager: CanvasProvider
+		private gameLoopProvider: GameLoopProvider,
+		private inpurProvider: InputProvider,
+		private canvasProvider: CanvasProvider,
+		private sceneProvider: SceneProvider,
+		private entityContainer: EntityContainer,
+		private entityBuilder: EntityProvider,
+		private spriteSystem: SpriteSystem,
+		private planetSystem: GravitySystem,
+		private planetFactory: PlanetFactory
 	) {
-		gameLoopManager.run();
+		gameLoopProvider.run();
 	}
 }
