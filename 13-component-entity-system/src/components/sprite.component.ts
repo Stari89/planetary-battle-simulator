@@ -5,4 +5,5 @@ export default class SpriteComponent implements IComponent {
 	public image: HTMLImageElement;
 	public cutoutPosition: Vector2;
 	public cutoutSize: Vector2;
+	public offset: Vector2;
 }

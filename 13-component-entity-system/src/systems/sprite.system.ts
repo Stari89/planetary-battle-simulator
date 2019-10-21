@@ -29,8 +29,10 @@ export default class SpriteSystem implements OnRender {
 					spriteComponent.cutoutPosition.y,
 					spriteComponent.cutoutSize.x,
 					spriteComponent.cutoutSize.y,
-					transformComponent.position.x,
-					transformComponent.position.y,
+					transformComponent.position.x -
+						(spriteComponent.offset.x * transformComponent.scale.x) / spriteComponent.cutoutSize.x,
+					transformComponent.position.y -
+						(spriteComponent.offset.y * transformComponent.scale.y) / spriteComponent.cutoutSize.y,
 					transformComponent.scale.x,
 					transformComponent.scale.y
 				);

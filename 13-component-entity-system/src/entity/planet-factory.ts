@@ -24,12 +24,96 @@ import planet15 from '../assets/planet15.png';
 import planet16 from '../assets/planet16.png';
 import planet17 from '../assets/planet17.png';
 import planet18 from '../assets/planet18.png';
+import CanvasProvider from '../providers/canvas.provider';
 
 @Injectable()
 export default class PlanetFactory {
-	constructor(private entityProvider: EntityProvider) {}
+	constructor(private entityProvider: EntityProvider, private canvasProvider: CanvasProvider) {}
 
-	generateRandomPlanet(): IEntity {
+	generatePlanetMoonSystem(): IEntity[] {
+		const planet = this.generatePlanet(
+			this.canvasProvider.ViewSize.scale(0.5),
+			new Vector2(0, -0.0016),
+			40,
+			this.getRandomImage()
+		);
+		const moon = this.generatePlanet(
+			new Vector2(this.canvasProvider.ViewSize.x * 0.6, this.canvasProvider.ViewSize.y * 0.5),
+			new Vector2(0, 0.1),
+			10,
+			this.getRandomImage()
+		);
+		return [planet, moon];
+	}
+
+	generateSolarSystem(): IEntity[] {
+		const sun = this.generatePlanet(
+			this.canvasProvider.ViewSize.scale(0.5),
+			new Vector2(0, 0),
+			50,
+			this.getRandomImage()
+		);
+
+		const p1 = this.generatePlanet(
+			new Vector2(this.canvasProvider.ViewSize.x * 0.5 + 96, this.canvasProvider.ViewSize.y * 0.5),
+			new Vector2(0, 0.3),
+			3,
+			this.getRandomImage()
+		);
+
+		const p2 = this.generatePlanet(
+			new Vector2(this.canvasProvider.ViewSize.x * 0.5 + 150, this.canvasProvider.ViewSize.y * 0.5),
+			new Vector2(0, 0.25),
+			4,
+			this.getRandomImage()
+		);
+
+		const p3 = this.generatePlanet(
+			new Vector2(this.canvasProvider.ViewSize.x * 0.5 + 288, this.canvasProvider.ViewSize.y * 0.5),
+			new Vector2(0, 0.2),
+			5,
+			this.getRandomImage()
+		);
+
+		const p4 = this.generatePlanet(
+			new Vector2(this.canvasProvider.ViewSize.x * 0.5 + 400, this.canvasProvider.ViewSize.y * 0.5),
+			new Vector2(0, 0.16),
+			6,
+			this.getRandomImage()
+		);
+
+		const p4m1 = this.generatePlanet(
+			new Vector2(this.canvasProvider.ViewSize.x * 0.5 + 410, this.canvasProvider.ViewSize.y * 0.5),
+			new Vector2(0, 0.21),
+			2,
+			this.getRandomImage()
+		);
+
+		const p5 = this.generatePlanet(
+			new Vector2(this.canvasProvider.ViewSize.x * 0.5 + 768, this.canvasProvider.ViewSize.y * 0.5),
+			new Vector2(0, 0.12),
+			15,
+			this.getRandomImage()
+		);
+
+		const p5m1 = this.generatePlanet(
+			new Vector2(this.canvasProvider.ViewSize.x * 0.5 + 788, this.canvasProvider.ViewSize.y * 0.5),
+			new Vector2(0, 0.25),
+			3,
+			this.getRandomImage()
+		);
+
+		const p5m2 = this.generatePlanet(
+			new Vector2(this.canvasProvider.ViewSize.x * 0.5 + 798, this.canvasProvider.ViewSize.y * 0.5),
+			new Vector2(0, 0.24),
+			2,
+			this.getRandomImage()
+		);
+
+		return [sun, p1, p2, p3, p4, p4m1, p5, p5m1, p5m2];
+	}
+
+	generatePlanet(position: Vector2, speed: Vector2, diameter: number, image: HTMLImageElement): IEntity {
 		const planet = this.entityProvider.generateEntity([
 			SpriteComponent,
 			TransformComponent,
@@ -37,13 +121,13 @@ export default class PlanetFactory {
 		]);
 
 		const sprite = this.entityProvider.getComponent(planet, SpriteComponent);
-		sprite.image = this.getRandomImage();
+		sprite.image = image;
 		sprite.cutoutPosition = new Vector2(0, 0);
 		sprite.cutoutSize = new Vector2(300, 300);
+		sprite.offset = new Vector2(150, 150);
 
 		let transform: TransformComponent = this.entityProvider.getComponent(planet, TransformComponent);
-		transform.position = new Vector2(Math.floor(Math.random() * 1920), Math.floor(Math.random() * 1080)); // todo
-		const diameter = 10 + Math.floor(Math.random() * 40);
+		transform.position = position;
 		transform.scale = new Vector2(diameter, diameter);
 		transform.rotation = 0;
 
@@ -51,12 +135,23 @@ export default class PlanetFactory {
 			planet,
 			GravityAffectedComponent
 		);
-		gravityAssisted.mass = 200;
-		gravityAssisted.position = transform.position;
+		gravityAssisted.mass = Math.pow(diameter, 3);
 		gravityAssisted.preUpdatedPosition = transform.position;
-		gravityAssisted.speed = Vector2.getRandomVector(new Vector2(50, 50), true);
+		gravityAssisted.velocity = speed;
 
 		return planet;
+	}
+
+	generateRandomPlanet(): IEntity {
+		return this.generatePlanet(
+			new Vector2(
+				Math.floor(Math.random() * this.canvasProvider.ViewSize.x),
+				Math.floor(Math.random() * this.canvasProvider.ViewSize.y)
+			),
+			Vector2.getRandomVector(new Vector2(0.1, 0.1), true),
+			10 + Math.floor(Math.random() * 40),
+			this.getRandomImage()
+		);
 	}
 
 	private getRandomImage(): HTMLImageElement {
