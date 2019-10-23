@@ -128,7 +128,7 @@ export default class PlanetFactory {
 
 		let transform: TransformComponent = this.entityProvider.getComponent(planet, TransformComponent);
 		transform.position = position;
-		transform.scale = new Vector2(diameter, diameter);
+		transform.scale = new Vector2(diameter * 3, diameter * 3);
 		transform.rotation = 0;
 
 		let gravityAssisted: GravityAffectedComponent = this.entityProvider.getComponent(

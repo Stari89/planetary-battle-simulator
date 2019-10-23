@@ -9,6 +9,7 @@ import SpriteSystem from './systems/sprite.system';
 import GravitySystem from './systems/gravity.system';
 import PlanetFactory from './entity/planet-factory';
 import ForceVisualizationSystem from './systems/force-visualization.system';
+import GridSystem from './systems/grid.system';
 
 @Injectable()
 export default class CanvasApp {
@@ -19,11 +20,11 @@ export default class CanvasApp {
 		private sceneProvider: SceneProvider,
 		private entityContainer: EntityContainer,
 		private entityBuilder: EntityProvider,
-		private spriteSystem: SpriteSystem,
 		private planetSystem: GravitySystem,
-		private planetFactory: PlanetFactory
-	) //private forceSystem: ForceVisualizationSystem
-	{
+		private planetFactory: PlanetFactory,
+		private gridSystem: GridSystem,
+		private spriteSystem: SpriteSystem
+	) {
 		gameLoopProvider.run();
 	}
 }
