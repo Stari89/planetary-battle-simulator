@@ -15,31 +15,31 @@ export default class GridSystem implements OnRender {
 	) {}
 
 	public onRender(loopInfo: ILoopInfo) {
+		const ctx = this.canvasProvider.Context;
+		const view = this.canvasProvider.ViewSize;
+
 		this.entityContainer.entities.forEach(entity => {
 			if (this.entityProvider.hasComponent(entity, GridComponent)) {
 				const gridComponent = this.entityProvider.getComponent(entity, GridComponent);
-
-				const ctx = this.canvasProvider.Context;
-				const view = this.canvasProvider.ViewSize;
 
 				let x = (view.x % (gridComponent.resolution * 2)) / 2;
 				while (x < view.x) {
 					ctx.beginPath();
 					ctx.moveTo(x - 1, 0);
 					ctx.lineTo(x - 1, view.y);
-					ctx.strokeStyle = '#FF00FF20';
+					ctx.strokeStyle = `#FF00FF${gridComponent.weight}`;
 					ctx.stroke();
 
 					ctx.beginPath();
 					ctx.moveTo(x + 1, 0);
 					ctx.lineTo(x + 1, view.y);
-					ctx.strokeStyle = '#00FFFF20';
+					ctx.strokeStyle = `#00FFFF${gridComponent.weight}`;
 					ctx.stroke();
 
 					ctx.beginPath();
 					ctx.moveTo(x, 0);
 					ctx.lineTo(x, view.y);
-					ctx.strokeStyle = gridComponent.weight;
+					ctx.strokeStyle = `#FFFFFF${gridComponent.weight}`;
 					ctx.stroke();
 
 					x += gridComponent.resolution;
@@ -50,19 +50,19 @@ export default class GridSystem implements OnRender {
 					ctx.beginPath();
 					ctx.moveTo(0, y - 1);
 					ctx.lineTo(view.x, y - 1);
-					ctx.strokeStyle = '#FF00FF20';
+					ctx.strokeStyle = `#FF00FF${gridComponent.weight}`;
 					ctx.stroke();
 
 					ctx.beginPath();
 					ctx.moveTo(0, y + 1);
 					ctx.lineTo(view.x, y + 1);
-					ctx.strokeStyle = '#00FFFF20';
+					ctx.strokeStyle = `#00FFFF${gridComponent.weight}`;
 					ctx.stroke();
 
 					ctx.beginPath();
 					ctx.moveTo(0, y);
 					ctx.lineTo(view.x, y);
-					ctx.strokeStyle = gridComponent.weight;
+					ctx.strokeStyle = `#FFFFFF${gridComponent.weight}`;
 					ctx.stroke();
 
 					y += gridComponent.resolution;

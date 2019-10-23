@@ -10,6 +10,7 @@ import GravitySystem from './systems/gravity.system';
 import PlanetFactory from './entity/planet-factory';
 import ForceVisualizationSystem from './systems/force-visualization.system';
 import GridSystem from './systems/grid.system';
+import StarfieldSystem from './systems/starfield.system';
 
 @Injectable()
 export default class CanvasApp {
@@ -22,6 +23,7 @@ export default class CanvasApp {
 		private entityBuilder: EntityProvider,
 		private planetSystem: GravitySystem,
 		private planetFactory: PlanetFactory,
+		private starfieldSystem: StarfieldSystem,
 		private gridSystem: GridSystem,
 		private spriteSystem: SpriteSystem
 	) {

@@ -6,7 +6,7 @@ export default class GridComponent implements IComponent {
 }
 
 export enum GridWeight {
-	light = '#FFFFFF05',
-	normal = '#FFFFFF10',
-	strong = '#FFFFFF20'
+	light = '05',
+	normal = '10',
+	strong = '20'
 }
