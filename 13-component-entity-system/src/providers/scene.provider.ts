@@ -23,7 +23,7 @@ export default class SceneProvider implements OnRun {
 		this.entityContainer.putEntity(this.generateGrid(100, GridWeight.strong));
 		this.entityContainer.putEntity(this.generateStarfield(10, 'FF'));
 		this.entityContainer.putEntity(this.generateStarfield(100, '66'));
-		this.entityContainer.putEntity(this.generateStarfield(1000, '22'));
+		this.entityContainer.putEntity(this.generateStarfield(100, '22'));
 	}
 
 	generateGrid(resolution: number, weight: GridWeight): IEntity {

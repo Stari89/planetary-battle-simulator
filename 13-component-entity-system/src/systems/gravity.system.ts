@@ -1,17 +1,22 @@
 import { Injectable } from '../ioc/injector';
 import EntityContainer from '../entity/entity-container';
 import EntityProvider from '../entity/entity.provider';
-import { OnUpdate, OnBeforeUpdate } from '../lifecycle';
+import { OnUpdate, OnBeforeUpdate, OnRender } from '../lifecycle';
 import { ILoopInfo } from '../providers/game-loop.provider';
 import TransformComponent from '../components/transform.component';
 import GravityAffectedComponent from '../components/gravity-affected.component';
 import Vector2 from '../vector-2';
+import CanvasProvider from '../providers/canvas.provider';
 
 @Injectable()
-export default class GravitySystem implements OnBeforeUpdate, OnUpdate {
+export default class GravitySystem implements OnBeforeUpdate, OnUpdate, OnRender {
 	private readonly G: number = 0.0001;
 
-	constructor(private entityContainer: EntityContainer, private entityProvider: EntityProvider) {}
+	constructor(
+		private entityContainer: EntityContainer,
+		private entityProvider: EntityProvider,
+		private canvasProvider: CanvasProvider
+	) {}
 
 	public onBeforeUpdate(loopInfo: ILoopInfo) {
 		this.entityContainer.entities.forEach(entity => {
@@ -65,6 +70,52 @@ export default class GravitySystem implements OnBeforeUpdate, OnUpdate {
 
 				const deltaPosition = gravityAffectedComponent.velocity.scale(loopInfo.dt);
 				transformComponent.position = transformComponent.position.add(deltaPosition);
+
+				gravityAffectedComponent.positionHistory.push({ t: loopInfo.t, position: transformComponent.position });
+				gravityAffectedComponent.positionHistory = gravityAffectedComponent.positionHistory.filter(
+					log => log.t > loopInfo.t - 1000
+				);
+			}
+		});
+	}
+
+	public onRender(loopInfo: ILoopInfo) {
+		this.entityContainer.entities.forEach(planet => {
+			if (
+				this.entityProvider.hasComponent(planet, TransformComponent) &&
+				this.entityProvider.hasComponent(planet, GravityAffectedComponent)
+			) {
+				const gravityAffectedComponent = this.entityProvider.getComponent(planet, GravityAffectedComponent);
+
+				if (gravityAffectedComponent.positionHistory.length < 2) {
+					return;
+				}
+				const history = gravityAffectedComponent.positionHistory;
+				const ctx = this.canvasProvider.Context;
+
+				ctx.beginPath();
+				for (let i = 0; i < gravityAffectedComponent.positionHistory.length - 1; i++) {
+					ctx.moveTo(history[i].position.x - 1, history[i].position.y - 1);
+					ctx.lineTo(history[i + 1].position.x - 1, history[i + 1].position.y - 1);
+				}
+				ctx.strokeStyle = `#FF00FF20`;
+				ctx.stroke();
+
+				ctx.beginPath();
+				for (let i = 0; i < gravityAffectedComponent.positionHistory.length - 1; i++) {
+					ctx.moveTo(history[i].position.x + 1, history[i].position.y + 1);
+					ctx.lineTo(history[i + 1].position.x + 1, history[i + 1].position.y + 1);
+				}
+				ctx.strokeStyle = `#00FFFF20`;
+				ctx.stroke();
+
+				ctx.beginPath();
+				for (let i = 0; i < gravityAffectedComponent.positionHistory.length - 1; i++) {
+					ctx.moveTo(history[i].position.x, history[i].position.y);
+					ctx.lineTo(history[i + 1].position.x, history[i + 1].position.y);
+				}
+				ctx.strokeStyle = `#FFFFFF20`;
+				ctx.stroke();
 			}
 		});
 	}

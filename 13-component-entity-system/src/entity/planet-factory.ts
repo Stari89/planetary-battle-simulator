@@ -139,6 +139,7 @@ export default class PlanetFactory {
 		gravityAssisted.preUpdatedPosition = transform.position;
 		gravityAssisted.velocity = speed;
 
+		gravityAssisted.positionHistory = [];
 		return planet;
 	}
 

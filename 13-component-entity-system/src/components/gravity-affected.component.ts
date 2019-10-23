@@ -6,4 +6,10 @@ export default class GravityAffectedComponent implements IComponent {
 	public velocity: Vector2; // pixels per milisecond
 	public mass: number;
 	public netAcceleration: Vector2;
+	public positionHistory: Array<IPositionLog>;
+}
+
+export interface IPositionLog {
+	t: number;
+	position: Vector2;
 }
