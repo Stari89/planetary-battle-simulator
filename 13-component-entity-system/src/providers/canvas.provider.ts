@@ -1,9 +1,9 @@
 import { Injectable } from '../ioc/injector';
 import Vector2 from '../vector-2';
-import { OnUpdate } from '../lifecycle';
+import { OnUpdate, OnAfterUpdate } from '../lifecycle';
 
 @Injectable()
-export default class CanvasProvider implements OnUpdate {
+export default class CanvasProvider implements OnUpdate, OnAfterUpdate {
 	// Fields
 	private root: HTMLElement;
 	private canvas: HTMLCanvasElement;
@@ -48,6 +48,10 @@ export default class CanvasProvider implements OnUpdate {
 		) {
 			this.setDimensions();
 		}
+	}
+
+	public onAfterUpdate(): void {
+		this.context.clearRect(0, 0, this.viewSize.x, this.viewSize.y);
 	}
 
 	// Private
