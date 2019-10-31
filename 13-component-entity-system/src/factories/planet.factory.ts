@@ -1,6 +1,6 @@
 import { Injectable } from '../ioc/injector';
-import { IEntity } from './entity';
-import EntityProvider from './entity.provider';
+import { IEntity } from '../entity/entity';
+import EntityProvider from '../entity/entity.provider';
 import SpriteComponent from '../components/sprite.component';
 import TransformComponent from '../components/transform.component';
 import Vector2 from '../vector-2';

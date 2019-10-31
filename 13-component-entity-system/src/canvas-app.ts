@@ -7,11 +7,11 @@ import EntityContainer from './entity/entity-container';
 import EntityProvider from './entity/entity.provider';
 import SpriteSystem from './systems/sprite.system';
 import GravitySystem from './systems/gravity.system';
-import PlanetFactory from './entity/planet-factory';
+import PlanetFactory from './factories/planet.factory';
 import ForceVisualizationSystem from './systems/force-visualization.system';
 import GridSystem from './systems/grid.system';
-import StarfieldFactory from './entity/starfield-factory';
-import SceneFactory from './providers/scene.factory';
+import StarfieldFactory from './factories/starfield.factory';
+import SceneFactory from './factories/scene.factory';
 import CameraSystem from './systems/camera.system';
 
 @Injectable()

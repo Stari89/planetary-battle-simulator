@@ -1,13 +1,13 @@
 import { Injectable } from '../ioc/injector';
 import { IEntity } from '../entity/entity';
-import PlanetFactory from '../entity/planet-factory';
-import StarfieldFactory, { Luminosity } from '../entity/starfield-factory';
+import PlanetFactory from './planet.factory';
+import StarfieldFactory, { Luminosity } from './starfield.factory';
 import EntityProvider from '../entity/entity.provider';
 import GridComponent, { GridWeight } from '../components/grid.component';
 import TransformComponent from '../components/transform.component';
 import SpriteComponent from '../components/sprite.component';
 import splashSrc from '../assets/splash.jpg';
-import CanvasProvider from './canvas.provider';
+import CanvasProvider from '../providers/canvas.provider';
 import Vector2 from '../vector-2';
 import CameraComponent from '../components/camera.component';
 

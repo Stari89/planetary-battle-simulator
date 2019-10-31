@@ -2,7 +2,7 @@ import { Injectable } from '../ioc/injector';
 import { OnRun, OnBeforeUpdate } from '../lifecycle';
 import EntityContainer from '../entity/entity-container';
 import { IEntity } from '../entity/entity';
-import SceneFactory from './scene.factory';
+import SceneFactory from '../factories/scene.factory';
 
 export enum Scenes {
 	Splash,

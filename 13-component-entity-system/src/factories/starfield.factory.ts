@@ -1,7 +1,7 @@
 import { Injectable } from '../ioc/injector';
-import EntityProvider from './entity.provider';
+import EntityProvider from '../entity/entity.provider';
 import CanvasProvider from '../providers/canvas.provider';
-import { IEntity } from './entity';
+import { IEntity } from '../entity/entity';
 import StarfieldComponent from '../components/starfield.component';
 import TransformComponent from '../components/transform.component';
 import SpriteComponent from '../components/sprite.component';
