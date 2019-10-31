@@ -7,6 +7,7 @@ import TransformComponent from '../components/transform.component';
 import GravityAffectedComponent from '../components/gravity-affected.component';
 import Vector2 from '../vector-2';
 import CanvasProvider from '../providers/canvas.provider';
+import CameraComponent from '../components/camera.component';
 
 @Injectable()
 export default class GravitySystem implements OnBeforeUpdate, OnUpdate, OnRender {
@@ -79,29 +80,51 @@ export default class GravitySystem implements OnBeforeUpdate, OnUpdate, OnRender
 			const history = gravityAffectedComponent.positionHistory;
 			const ctx = this.canvasProvider.Context;
 
-			ctx.beginPath();
-			for (let i = 0; i < gravityAffectedComponent.positionHistory.length - 1; i++) {
-				ctx.moveTo(history[i].position.x - 1, history[i].position.y - 1);
-				ctx.lineTo(history[i + 1].position.x - 1, history[i + 1].position.y - 1);
-			}
-			ctx.strokeStyle = `#FF00FF20`;
-			ctx.stroke();
+			this.entityContainer.getEntitiesWithComponents(CameraComponent, TransformComponent).forEach(camera => {
+				const cameraTransform = this.entityProvider.getComponent(camera, TransformComponent);
 
-			ctx.beginPath();
-			for (let i = 0; i < gravityAffectedComponent.positionHistory.length - 1; i++) {
-				ctx.moveTo(history[i].position.x + 1, history[i].position.y + 1);
-				ctx.lineTo(history[i + 1].position.x + 1, history[i + 1].position.y + 1);
-			}
-			ctx.strokeStyle = `#00FFFF20`;
-			ctx.stroke();
+				ctx.beginPath();
+				for (let i = 0; i < gravityAffectedComponent.positionHistory.length - 1; i++) {
+					ctx.moveTo(
+						history[i].position.x - cameraTransform.position.x - 1,
+						history[i].position.y - cameraTransform.position.y - 1
+					);
+					ctx.lineTo(
+						history[i + 1].position.x - cameraTransform.position.x - 1,
+						history[i + 1].position.y - cameraTransform.position.y - 1
+					);
+				}
+				ctx.strokeStyle = `#FF00FF20`;
+				ctx.stroke();
 
-			ctx.beginPath();
-			for (let i = 0; i < gravityAffectedComponent.positionHistory.length - 1; i++) {
-				ctx.moveTo(history[i].position.x, history[i].position.y);
-				ctx.lineTo(history[i + 1].position.x, history[i + 1].position.y);
-			}
-			ctx.strokeStyle = `#FFFFFF20`;
-			ctx.stroke();
+				ctx.beginPath();
+				for (let i = 0; i < gravityAffectedComponent.positionHistory.length - 1; i++) {
+					ctx.moveTo(
+						history[i].position.x - cameraTransform.position.x + 1,
+						history[i].position.y - cameraTransform.position.y + 1
+					);
+					ctx.lineTo(
+						history[i + 1].position.x - cameraTransform.position.x + 1,
+						history[i + 1].position.y - cameraTransform.position.y + 1
+					);
+				}
+				ctx.strokeStyle = `#00FFFF20`;
+				ctx.stroke();
+
+				ctx.beginPath();
+				for (let i = 0; i < gravityAffectedComponent.positionHistory.length - 1; i++) {
+					ctx.moveTo(
+						history[i].position.x - cameraTransform.position.x,
+						history[i].position.y - cameraTransform.position.y
+					);
+					ctx.lineTo(
+						history[i + 1].position.x - cameraTransform.position.x,
+						history[i + 1].position.y - cameraTransform.position.y
+					);
+				}
+				ctx.strokeStyle = `#FFFFFF20`;
+				ctx.stroke();
+			});
 		});
 	}
 }

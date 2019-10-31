@@ -13,6 +13,7 @@ import GridSystem from './systems/grid.system';
 import StarfieldFactory from './factories/starfield.factory';
 import SceneFactory from './factories/scene.factory';
 import CameraSystem from './systems/camera.system';
+import StarfieldSystem from './systems/starfield.system';
 
 @Injectable()
 export default class CanvasApp {
@@ -26,6 +27,7 @@ export default class CanvasApp {
 		private sceneProvider: SceneProvider,
 		private planetFactory: PlanetFactory,
 		private starfieldFactory: StarfieldFactory,
+		private starfieldSystem: StarfieldSystem,
 		private gridSystem: GridSystem,
 		private planetSystem: GravitySystem,
 		private spriteSystem: SpriteSystem,

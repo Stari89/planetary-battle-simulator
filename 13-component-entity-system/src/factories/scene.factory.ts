@@ -1,7 +1,7 @@
 import { Injectable } from '../ioc/injector';
 import { IEntity } from '../entity/entity';
 import PlanetFactory from './planet.factory';
-import StarfieldFactory, { Luminosity } from './starfield.factory';
+import StarfieldFactory from './starfield.factory';
 import EntityProvider from '../providers/entity.provider';
 import GridComponent, { GridWeight } from '../components/grid.component';
 import TransformComponent from '../components/transform.component';
@@ -10,6 +10,7 @@ import splashSrc from '../assets/splash.jpg';
 import CanvasProvider from '../providers/canvas.provider';
 import Vector2 from '../vector-2';
 import CameraComponent from '../components/camera.component';
+import { Luminosity } from '../components/starfield.component';
 
 @Injectable()
 export default class SceneFactory {
@@ -39,6 +40,7 @@ export default class SceneFactory {
 
 	generateSplashScene(): Array<IEntity> {
 		const entities: Array<IEntity> = [];
+		entities.push(this.generateCamera());
 		entities.push(this.generateSplash());
 		return entities;
 	}

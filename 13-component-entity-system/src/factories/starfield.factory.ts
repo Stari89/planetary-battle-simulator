@@ -2,31 +2,24 @@ import { Injectable } from '../ioc/injector';
 import EntityProvider from '../providers/entity.provider';
 import CanvasProvider from '../providers/canvas.provider';
 import { IEntity } from '../entity/entity';
-import StarfieldComponent from '../components/starfield.component';
+import StarfieldComponent, { Luminosity } from '../components/starfield.component';
 import TransformComponent from '../components/transform.component';
-import SpriteComponent from '../components/sprite.component';
 import Vector2 from '../vector-2';
-
-export enum Luminosity {
-	Dim = '22',
-	Normal = '66',
-	Bright = 'FF'
-}
 
 @Injectable()
 export default class StarfieldFactory {
 	constructor(private entityProvider: EntityProvider, private canvasProvider: CanvasProvider) {}
 
 	generateStarfield(ppm: number, luminosity: Luminosity): IEntity {
-		const entity = this.entityProvider.generateEntity(StarfieldComponent, TransformComponent, SpriteComponent);
-		const starfield = this.entityProvider.getComponent(entity, StarfieldComponent);
+		const entity = this.entityProvider.generateEntity(StarfieldComponent, TransformComponent);
 
-		const sprite = this.entityProvider.getComponent(entity, SpriteComponent);
-		sprite.image = new Image();
-		sprite.image.src = this.generateImage(ppm, luminosity);
-		sprite.cutoutPosition = new Vector2(0, 0);
-		sprite.cutoutSize = new Vector2(this.canvasProvider.ViewSize.x, this.canvasProvider.ViewSize.y);
-		sprite.offset = new Vector2(0, 0);
+		const starfield = this.entityProvider.getComponent(entity, StarfieldComponent);
+		starfield.image = new Image();
+		starfield.image.src = this.generateImage(ppm, luminosity);
+		starfield.cutoutPosition = new Vector2(0, 0);
+		starfield.cutoutSize = new Vector2(this.canvasProvider.ViewSize.x, this.canvasProvider.ViewSize.y);
+		starfield.offset = new Vector2(0, 0);
+		starfield.luminosity = luminosity;
 
 		const transform = this.entityProvider.getComponent(entity, TransformComponent);
 		transform.position = new Vector2(0, 0);

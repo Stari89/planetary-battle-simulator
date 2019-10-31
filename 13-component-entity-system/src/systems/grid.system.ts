@@ -5,6 +5,8 @@ import EntityProvider from '../providers/entity.provider';
 import CanvasProvider from '../providers/canvas.provider';
 import { OnRender } from '../lifecycle';
 import GridComponent from '../components/grid.component';
+import CameraComponent from '../components/camera.component';
+import TransformComponent from '../components/transform.component';
 
 @Injectable()
 export default class GridSystem implements OnRender {
@@ -21,51 +23,55 @@ export default class GridSystem implements OnRender {
 		this.entityContainer.getEntitiesWithComponents(GridComponent).forEach(entity => {
 			const gridComponent = this.entityProvider.getComponent(entity, GridComponent);
 
-			let x = (view.x % (gridComponent.resolution * 2)) / 2;
-			while (x < view.x) {
-				ctx.beginPath();
-				ctx.moveTo(x - 1, 0);
-				ctx.lineTo(x - 1, view.y);
-				ctx.strokeStyle = `#FF00FF${gridComponent.weight}`;
-				ctx.stroke();
+			this.entityContainer.getEntitiesWithComponents(CameraComponent, TransformComponent).forEach(camera => {
+				const cameraTransform = this.entityProvider.getComponent(camera, TransformComponent);
 
-				ctx.beginPath();
-				ctx.moveTo(x + 1, 0);
-				ctx.lineTo(x + 1, view.y);
-				ctx.strokeStyle = `#00FFFF${gridComponent.weight}`;
-				ctx.stroke();
+				let x = ((view.x - cameraTransform.position.x * 2) % (gridComponent.resolution * 2)) / 2;
+				while (x < view.x) {
+					ctx.beginPath();
+					ctx.moveTo(x - 1, 0);
+					ctx.lineTo(x - 1, view.y);
+					ctx.strokeStyle = `#FF00FF${gridComponent.weight}`;
+					ctx.stroke();
 
-				ctx.beginPath();
-				ctx.moveTo(x, 0);
-				ctx.lineTo(x, view.y);
-				ctx.strokeStyle = `#FFFFFF${gridComponent.weight}`;
-				ctx.stroke();
+					ctx.beginPath();
+					ctx.moveTo(x + 1, 0);
+					ctx.lineTo(x + 1, view.y);
+					ctx.strokeStyle = `#00FFFF${gridComponent.weight}`;
+					ctx.stroke();
 
-				x += gridComponent.resolution;
-			}
+					ctx.beginPath();
+					ctx.moveTo(x, 0);
+					ctx.lineTo(x, view.y);
+					ctx.strokeStyle = `#FFFFFF${gridComponent.weight}`;
+					ctx.stroke();
 
-			let y = (view.y % (gridComponent.resolution * 2)) / 2;
-			while (y < view.y) {
-				ctx.beginPath();
-				ctx.moveTo(0, y - 1);
-				ctx.lineTo(view.x, y - 1);
-				ctx.strokeStyle = `#FF00FF${gridComponent.weight}`;
-				ctx.stroke();
+					x += gridComponent.resolution;
+				}
 
-				ctx.beginPath();
-				ctx.moveTo(0, y + 1);
-				ctx.lineTo(view.x, y + 1);
-				ctx.strokeStyle = `#00FFFF${gridComponent.weight}`;
-				ctx.stroke();
+				let y = ((view.y - cameraTransform.position.y * 2) % (gridComponent.resolution * 2)) / 2;
+				while (y < view.y) {
+					ctx.beginPath();
+					ctx.moveTo(0, y - 1);
+					ctx.lineTo(view.x, y - 1);
+					ctx.strokeStyle = `#FF00FF${gridComponent.weight}`;
+					ctx.stroke();
 
-				ctx.beginPath();
-				ctx.moveTo(0, y);
-				ctx.lineTo(view.x, y);
-				ctx.strokeStyle = `#FFFFFF${gridComponent.weight}`;
-				ctx.stroke();
+					ctx.beginPath();
+					ctx.moveTo(0, y + 1);
+					ctx.lineTo(view.x, y + 1);
+					ctx.strokeStyle = `#00FFFF${gridComponent.weight}`;
+					ctx.stroke();
 
-				y += gridComponent.resolution;
-			}
+					ctx.beginPath();
+					ctx.moveTo(0, y);
+					ctx.lineTo(view.x, y);
+					ctx.strokeStyle = `#FFFFFF${gridComponent.weight}`;
+					ctx.stroke();
+
+					y += gridComponent.resolution;
+				}
+			});
 		});
 	}
 }
