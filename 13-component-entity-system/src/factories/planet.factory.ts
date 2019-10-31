@@ -1,6 +1,6 @@
 import { Injectable } from '../ioc/injector';
 import { IEntity } from '../entity/entity';
-import EntityProvider from '../entity/entity.provider';
+import EntityProvider from '../providers/entity.provider';
 import SpriteComponent from '../components/sprite.component';
 import TransformComponent from '../components/transform.component';
 import Vector2 from '../vector-2';
@@ -98,11 +98,11 @@ export default class PlanetFactory {
 	}
 
 	generatePlanet(position: Vector2, speed: Vector2, diameter: number, image: HTMLImageElement): IEntity {
-		const planet = this.entityProvider.generateEntity([
+		const planet = this.entityProvider.generateEntity(
 			SpriteComponent,
 			TransformComponent,
 			GravityAffectedComponent
-		]);
+		);
 
 		const sprite = this.entityProvider.getComponent(planet, SpriteComponent);
 		sprite.image = image;

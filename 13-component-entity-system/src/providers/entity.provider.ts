@@ -1,12 +1,10 @@
 import { Injectable } from '../ioc/injector';
-import { IEntity } from './entity';
+import { IEntity } from '../entity/entity';
 import { IComponent, IComponentClass } from '../components/component';
 
 @Injectable()
 export default class EntityProvider {
-	constructor() {}
-
-	public generateEntity(componentClasses?: IComponentClass<IComponent>[]): IEntity {
+	public generateEntity(...componentClasses: IComponentClass<IComponent>[]): IEntity {
 		let entity: IEntity = { components: {}, componentClasses: {} };
 		if (!componentClasses || componentClasses.length === 0) {
 			return entity;

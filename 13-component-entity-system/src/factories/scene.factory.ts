@@ -2,7 +2,7 @@ import { Injectable } from '../ioc/injector';
 import { IEntity } from '../entity/entity';
 import PlanetFactory from './planet.factory';
 import StarfieldFactory, { Luminosity } from './starfield.factory';
-import EntityProvider from '../entity/entity.provider';
+import EntityProvider from '../providers/entity.provider';
 import GridComponent, { GridWeight } from '../components/grid.component';
 import TransformComponent from '../components/transform.component';
 import SpriteComponent from '../components/sprite.component';
@@ -44,7 +44,7 @@ export default class SceneFactory {
 	}
 
 	private generateGrid(resolution: number, weight: GridWeight): IEntity {
-		const grid = this.entityProvider.generateEntity([GridComponent]);
+		const grid = this.entityProvider.generateEntity(GridComponent);
 		const gridComponent = this.entityProvider.getComponent(grid, GridComponent);
 		gridComponent.resolution = resolution;
 		gridComponent.weight = weight;
@@ -52,7 +52,7 @@ export default class SceneFactory {
 	}
 
 	private generateCamera(): IEntity {
-		const cameraEntity = this.entityProvider.generateEntity([CameraComponent, TransformComponent]);
+		const cameraEntity = this.entityProvider.generateEntity(CameraComponent, TransformComponent);
 
 		const transform: TransformComponent = this.entityProvider.getComponent(cameraEntity, TransformComponent);
 		transform.position = new Vector2(0, 0);
@@ -63,7 +63,7 @@ export default class SceneFactory {
 	}
 
 	private generateSplash(): IEntity {
-		const splash = this.entityProvider.generateEntity([TransformComponent, SpriteComponent]);
+		const splash = this.entityProvider.generateEntity(TransformComponent, SpriteComponent);
 
 		const transform: TransformComponent = this.entityProvider.getComponent(splash, TransformComponent);
 		transform.position = new Vector2(this.canvasProvider.ViewSize.x / 2, this.canvasProvider.ViewSize.y / 2);

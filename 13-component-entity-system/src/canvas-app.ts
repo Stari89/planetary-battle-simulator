@@ -4,7 +4,7 @@ import InputProvider from './providers/input.provider';
 import CanvasProvider from './providers/canvas.provider';
 import SceneProvider from './providers/scene.provider';
 import EntityContainer from './entity/entity-container';
-import EntityProvider from './entity/entity.provider';
+import EntityProvider from './providers/entity.provider';
 import SpriteSystem from './systems/sprite.system';
 import GravitySystem from './systems/gravity.system';
 import PlanetFactory from './factories/planet.factory';

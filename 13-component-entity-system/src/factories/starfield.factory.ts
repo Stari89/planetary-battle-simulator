@@ -1,5 +1,5 @@
 import { Injectable } from '../ioc/injector';
-import EntityProvider from '../entity/entity.provider';
+import EntityProvider from '../providers/entity.provider';
 import CanvasProvider from '../providers/canvas.provider';
 import { IEntity } from '../entity/entity';
 import StarfieldComponent from '../components/starfield.component';
@@ -18,7 +18,7 @@ export default class StarfieldFactory {
 	constructor(private entityProvider: EntityProvider, private canvasProvider: CanvasProvider) {}
 
 	generateStarfield(ppm: number, luminosity: Luminosity): IEntity {
-		const entity = this.entityProvider.generateEntity([StarfieldComponent, TransformComponent, SpriteComponent]);
+		const entity = this.entityProvider.generateEntity(StarfieldComponent, TransformComponent, SpriteComponent);
 		const starfield = this.entityProvider.getComponent(entity, StarfieldComponent);
 
 		const sprite = this.entityProvider.getComponent(entity, SpriteComponent);

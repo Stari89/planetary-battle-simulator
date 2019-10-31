@@ -1,5 +1,5 @@
 import { Injectable } from '../ioc/injector';
-import EntityProvider from '../entity/entity.provider';
+import EntityProvider from '../providers/entity.provider';
 import EntityContainer from '../entity/entity-container';
 import { OnRender } from '../lifecycle';
 import CanvasProvider from '../providers/canvas.provider';
@@ -16,32 +16,27 @@ export default class ForceVisualizationSystem implements OnRender {
 	) {}
 
 	onRender(loopInfo: ILoopInfo) {
-		this.entityContainer.entities.forEach(entity => {
-			if (
-				this.entityProvider.hasComponent(entity, TransformComponent) &&
-				this.entityProvider.hasComponent(entity, GravityAffectedComponent)
-			) {
-				const gravityAffectedComponent = this.entityProvider.getComponent(entity, GravityAffectedComponent);
-				const transformComponent = this.entityProvider.getComponent(entity, TransformComponent);
+		this.entityContainer.getEntitiesWithComponents(TransformComponent, GravityAffectedComponent).forEach(entity => {
+			const gravityAffectedComponent = this.entityProvider.getComponent(entity, GravityAffectedComponent);
+			const transformComponent = this.entityProvider.getComponent(entity, TransformComponent);
 
-				const speedVector = transformComponent.position.add(gravityAffectedComponent.velocity.scale(1000));
-				const netAccelerationVector = transformComponent.position.add(
-					gravityAffectedComponent.netAcceleration.scale(1000000)
-				);
-				const ctx = this.canvasProvider.Context;
+			const speedVector = transformComponent.position.add(gravityAffectedComponent.velocity.scale(1000));
+			const netAccelerationVector = transformComponent.position.add(
+				gravityAffectedComponent.netAcceleration.scale(1000000)
+			);
+			const ctx = this.canvasProvider.Context;
 
-				ctx.beginPath();
-				ctx.moveTo(transformComponent.position.x, transformComponent.position.y);
-				ctx.lineTo(speedVector.x, speedVector.y);
-				ctx.strokeStyle = '#00FF00';
-				ctx.stroke();
+			ctx.beginPath();
+			ctx.moveTo(transformComponent.position.x, transformComponent.position.y);
+			ctx.lineTo(speedVector.x, speedVector.y);
+			ctx.strokeStyle = '#00FF00';
+			ctx.stroke();
 
-				ctx.beginPath();
-				ctx.moveTo(transformComponent.position.x, transformComponent.position.y);
-				ctx.lineTo(netAccelerationVector.x, netAccelerationVector.y);
-				ctx.strokeStyle = '#FF0000';
-				ctx.stroke();
-			}
+			ctx.beginPath();
+			ctx.moveTo(transformComponent.position.x, transformComponent.position.y);
+			ctx.lineTo(netAccelerationVector.x, netAccelerationVector.y);
+			ctx.strokeStyle = '#FF0000';
+			ctx.stroke();
 		});
 	}
 }
