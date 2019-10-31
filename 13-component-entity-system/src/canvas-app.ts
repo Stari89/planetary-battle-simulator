@@ -11,6 +11,7 @@ import PlanetFactory from './entity/planet-factory';
 import ForceVisualizationSystem from './systems/force-visualization.system';
 import GridSystem from './systems/grid.system';
 import StarfieldFactory from './entity/starfield-factory';
+import SceneFactory from './providers/scene.factory';
 
 @Injectable()
 export default class CanvasApp {
@@ -20,6 +21,7 @@ export default class CanvasApp {
 		private canvasProvider: CanvasProvider,
 		private entityContainer: EntityContainer,
 		private entityBuilder: EntityProvider,
+		private sceneFactory: SceneFactory,
 		private sceneProvider: SceneProvider,
 		private planetFactory: PlanetFactory,
 		private starfieldFactory: StarfieldFactory,

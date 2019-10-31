@@ -1,42 +1,57 @@
 import { Injectable } from '../ioc/injector';
-import { OnRun } from '../lifecycle';
+import { OnRun, OnBeforeUpdate } from '../lifecycle';
 import EntityContainer from '../entity/entity-container';
-import PlanetFactory from '../entity/planet-factory';
 import { IEntity } from '../entity/entity';
-import EntityProvider from '../entity/entity.provider';
-import GridComponent, { GridWeight } from '../components/grid.component';
-import StarfieldComponent from '../components/starfield.component';
-import TransformComponent from '../components/transform.component';
-import SpriteComponent from '../components/sprite.component';
-import StarfieldFactory, { Luminosity } from '../entity/starfield-factory';
+import SceneFactory from './scene.factory';
+
+export enum Scenes {
+	Splash,
+	Simulation
+}
 
 @Injectable()
-export default class SceneProvider implements OnRun {
-	constructor(
-		private entityContainer: EntityContainer,
-		private entityProvider: EntityProvider,
-		private planetFactory: PlanetFactory,
-		private starfieldFactory: StarfieldFactory
-	) {}
+export default class SceneProvider implements OnRun, OnBeforeUpdate {
+	private activeScene: Scenes;
+	private beforeNextUpdateSwitchTo: Scenes;
+	private nextSceneEntities: Array<IEntity>;
 
-	onRun() {
-		this.entityContainer.putEntity(this.starfieldFactory.generateStarfield(10, Luminosity.Bright));
-		this.entityContainer.putEntity(this.starfieldFactory.generateStarfield(100, Luminosity.Normal));
-		this.entityContainer.putEntity(this.starfieldFactory.generateStarfield(1000, Luminosity.Dim));
-
-		this.entityContainer.putEntity(this.generateGrid(100, GridWeight.strong));
-
-		const solarSystem = this.planetFactory.generateSolarSystem();
-		solarSystem.forEach(item => {
-			this.entityContainer.putEntity(item);
-		});
+	constructor(private sceneFactory: SceneFactory, private entityContainer: EntityContainer) {
+		this.loadSplashScene = this.loadSplashScene.bind(this);
+		this.loadSimulationScene = this.loadSimulationScene.bind(this);
+		this.switchScene = this.switchScene.bind(this);
+		this.onBeforeUpdate = this.onBeforeUpdate.bind(this);
 	}
 
-	generateGrid(resolution: number, weight: GridWeight): IEntity {
-		const grid = this.entityProvider.generateEntity([GridComponent]);
-		const gridComponent = this.entityProvider.getComponent(grid, GridComponent);
-		gridComponent.resolution = resolution;
-		gridComponent.weight = weight;
-		return grid;
+	onRun() {
+		this.loadSplashScene();
+		setTimeout(this.loadSimulationScene, 2000);
+	}
+
+	onBeforeUpdate() {
+		if (this.activeScene === this.beforeNextUpdateSwitchTo) {
+			return;
+		}
+
+		this.switchScene(this.nextSceneEntities);
+		this.activeScene = this.beforeNextUpdateSwitchTo;
+	}
+
+	public loadSplashScene() {
+		this.nextSceneEntities = this.sceneFactory.generateSplashScene();
+		this.beforeNextUpdateSwitchTo = Scenes.Splash;
+	}
+
+	public loadSimulationScene() {
+		this.nextSceneEntities = this.sceneFactory.generateSimulationScene();
+		setTimeout(() => {
+			this.beforeNextUpdateSwitchTo = Scenes.Simulation;
+		}, 500);
+	}
+
+	private switchScene(entities: Array<IEntity>) {
+		this.entityContainer.entities.clear();
+		entities.forEach(entity => {
+			this.entityContainer.putEntity(entity);
+		});
 	}
 }
