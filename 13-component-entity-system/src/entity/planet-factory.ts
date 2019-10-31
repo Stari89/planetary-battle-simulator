@@ -54,7 +54,7 @@ export default class PlanetFactory {
 
 		const p3 = this.generatePlanet(
 			new Vector2(this.canvasProvider.ViewSize.x * 0.5 + 288, this.canvasProvider.ViewSize.y * 0.5),
-			new Vector2(0, 0.0667),
+			new Vector2(0, 0.06),
 			5,
 			this.getRandomImage()
 		);

@@ -9,6 +9,7 @@ import SpriteComponent from '../components/sprite.component';
 import splashSrc from '../assets/splash.jpg';
 import CanvasProvider from './canvas.provider';
 import Vector2 from '../vector-2';
+import CameraComponent from '../components/camera.component';
 
 @Injectable()
 export default class SceneFactory {
@@ -21,6 +22,8 @@ export default class SceneFactory {
 
 	generateSimulationScene(): Array<IEntity> {
 		const entities: Array<IEntity> = [];
+
+		entities.push(this.generateCamera());
 
 		entities.push(this.starfieldFactory.generateStarfield(10, Luminosity.Bright));
 		entities.push(this.starfieldFactory.generateStarfield(100, Luminosity.Normal));
@@ -46,6 +49,17 @@ export default class SceneFactory {
 		gridComponent.resolution = resolution;
 		gridComponent.weight = weight;
 		return grid;
+	}
+
+	private generateCamera(): IEntity {
+		const cameraEntity = this.entityProvider.generateEntity([CameraComponent, TransformComponent]);
+
+		const transform: TransformComponent = this.entityProvider.getComponent(cameraEntity, TransformComponent);
+		transform.position = new Vector2(0, 0);
+		transform.scale = new Vector2(1, 1);
+		transform.rotation = 0;
+
+		return cameraEntity;
 	}
 
 	private generateSplash(): IEntity {
