@@ -30,22 +30,6 @@ import CanvasProvider from '../providers/canvas.provider';
 export default class PlanetFactory {
 	constructor(private entityProvider: EntityProvider, private canvasProvider: CanvasProvider) {}
 
-	generatePlanetMoonSystem(): IEntity[] {
-		const planet = this.generatePlanet(
-			this.canvasProvider.ViewSize.scale(0.5),
-			new Vector2(0, -0.0016),
-			40,
-			this.getRandomImage()
-		);
-		const moon = this.generatePlanet(
-			new Vector2(this.canvasProvider.ViewSize.x * 0.6, this.canvasProvider.ViewSize.y * 0.5),
-			new Vector2(0, 0.1),
-			10,
-			this.getRandomImage()
-		);
-		return [planet, moon];
-	}
-
 	generateSolarSystem(): IEntity[] {
 		const sun = this.generatePlanet(
 			this.canvasProvider.ViewSize.scale(0.5),
@@ -56,56 +40,56 @@ export default class PlanetFactory {
 
 		const p1 = this.generatePlanet(
 			new Vector2(this.canvasProvider.ViewSize.x * 0.5 + 96, this.canvasProvider.ViewSize.y * 0.5),
-			new Vector2(0, 0.3),
+			new Vector2(0, 0.1),
 			3,
 			this.getRandomImage()
 		);
 
 		const p2 = this.generatePlanet(
 			new Vector2(this.canvasProvider.ViewSize.x * 0.5 + 150, this.canvasProvider.ViewSize.y * 0.5),
-			new Vector2(0, 0.25),
+			new Vector2(0, 0.08333),
 			4,
 			this.getRandomImage()
 		);
 
 		const p3 = this.generatePlanet(
 			new Vector2(this.canvasProvider.ViewSize.x * 0.5 + 288, this.canvasProvider.ViewSize.y * 0.5),
-			new Vector2(0, 0.2),
+			new Vector2(0, 0.0667),
 			5,
 			this.getRandomImage()
 		);
 
 		const p4 = this.generatePlanet(
 			new Vector2(this.canvasProvider.ViewSize.x * 0.5 + 400, this.canvasProvider.ViewSize.y * 0.5),
-			new Vector2(0, 0.16),
+			new Vector2(0, 0.05333),
 			6,
 			this.getRandomImage()
 		);
 
 		const p4m1 = this.generatePlanet(
 			new Vector2(this.canvasProvider.ViewSize.x * 0.5 + 410, this.canvasProvider.ViewSize.y * 0.5),
-			new Vector2(0, 0.21),
+			new Vector2(0, 0.07),
 			2,
 			this.getRandomImage()
 		);
 
 		const p5 = this.generatePlanet(
 			new Vector2(this.canvasProvider.ViewSize.x * 0.5 + 768, this.canvasProvider.ViewSize.y * 0.5),
-			new Vector2(0, 0.12),
+			new Vector2(0, 0.04),
 			15,
 			this.getRandomImage()
 		);
 
 		const p5m1 = this.generatePlanet(
 			new Vector2(this.canvasProvider.ViewSize.x * 0.5 + 788, this.canvasProvider.ViewSize.y * 0.5),
-			new Vector2(0, 0.25),
+			new Vector2(0, 0.08333),
 			3,
 			this.getRandomImage()
 		);
 
 		const p5m2 = this.generatePlanet(
 			new Vector2(this.canvasProvider.ViewSize.x * 0.5 + 798, this.canvasProvider.ViewSize.y * 0.5),
-			new Vector2(0, 0.24),
+			new Vector2(0, 0.08),
 			2,
 			this.getRandomImage()
 		);

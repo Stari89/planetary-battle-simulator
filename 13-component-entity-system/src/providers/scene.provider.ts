@@ -24,7 +24,7 @@ export default class SceneProvider implements OnRun, OnBeforeUpdate {
 
 	onRun() {
 		this.loadSplashScene();
-		setTimeout(this.loadSimulationScene, 2000);
+		setTimeout(this.loadSimulationScene, 500);
 	}
 
 	onBeforeUpdate() {

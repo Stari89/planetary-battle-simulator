@@ -10,7 +10,7 @@ import CanvasProvider from '../providers/canvas.provider';
 
 @Injectable()
 export default class GravitySystem implements OnBeforeUpdate, OnUpdate, OnRender {
-	private readonly G: number = 0.0001;
+	private readonly G: number = 0.00001;
 
 	constructor(
 		private entityContainer: EntityContainer,
@@ -73,7 +73,7 @@ export default class GravitySystem implements OnBeforeUpdate, OnUpdate, OnRender
 
 				gravityAffectedComponent.positionHistory.push({ t: loopInfo.t, position: transformComponent.position });
 				gravityAffectedComponent.positionHistory = gravityAffectedComponent.positionHistory.filter(
-					log => log.t > loopInfo.t - 1000
+					log => log.t > loopInfo.t - 3000
 				);
 			}
 		});
