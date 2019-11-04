@@ -25,6 +25,7 @@ import planet16 from '../assets/planet16.png';
 import planet17 from '../assets/planet17.png';
 import planet18 from '../assets/planet18.png';
 import CanvasProvider from '../providers/canvas.provider';
+import FocusComponent from '../components/focus.component';
 
 @Injectable()
 export default class PlanetFactory {
@@ -35,7 +36,8 @@ export default class PlanetFactory {
 			this.canvasProvider.ViewSize.scale(0.5),
 			new Vector2(0, 0),
 			50,
-			this.getRandomImage()
+			this.getRandomImage(),
+			true
 		);
 
 		const p1 = this.generatePlanet(
@@ -97,11 +99,18 @@ export default class PlanetFactory {
 		return [sun, p1, p2, p3, p4, p4m1, p5, p5m1, p5m2];
 	}
 
-	generatePlanet(position: Vector2, speed: Vector2, diameter: number, image: HTMLImageElement): IEntity {
+	generatePlanet(
+		position: Vector2,
+		speed: Vector2,
+		diameter: number,
+		image: HTMLImageElement,
+		isFocused?: boolean
+	): IEntity {
 		const planet = this.entityProvider.generateEntity(
 			SpriteComponent,
 			TransformComponent,
-			GravityAffectedComponent
+			GravityAffectedComponent,
+			FocusComponent
 		);
 
 		const sprite = this.entityProvider.getComponent(planet, SpriteComponent);
@@ -122,8 +131,11 @@ export default class PlanetFactory {
 		gravityAssisted.mass = Math.pow(diameter, 3);
 		gravityAssisted.preUpdatedPosition = transform.position;
 		gravityAssisted.velocity = speed;
-
 		gravityAssisted.positionHistory = [];
+
+		let focus: FocusComponent = this.entityProvider.getComponent(planet, FocusComponent);
+		focus.isFocused = !!isFocused;
+
 		return planet;
 	}
 
