@@ -8,7 +8,11 @@ import Vector2 from '../vector-2';
 
 @Injectable()
 export default class StarfieldFactory {
-	constructor(private entityProvider: EntityProvider, private canvasProvider: CanvasProvider) {}
+	private starfieldSize: Vector2;
+
+	constructor(private entityProvider: EntityProvider, private canvasProvider: CanvasProvider) {
+		this.starfieldSize = canvasProvider.ViewSize;
+	}
 
 	generateStarfield(ppm: number, luminosity: Luminosity): IEntity {
 		const entity = this.entityProvider.generateEntity(StarfieldComponent, TransformComponent);
@@ -17,21 +21,21 @@ export default class StarfieldFactory {
 		starfield.image = new Image();
 		starfield.image.src = this.generateImage(ppm, luminosity);
 		starfield.cutoutPosition = new Vector2(0, 0);
-		starfield.cutoutSize = new Vector2(this.canvasProvider.ViewSize.x, this.canvasProvider.ViewSize.y);
+		starfield.cutoutSize = this.starfieldSize;
 		starfield.offset = new Vector2(0, 0);
 		starfield.luminosity = luminosity;
+		starfield.tileSize = this.starfieldSize;
 
 		const transform = this.entityProvider.getComponent(entity, TransformComponent);
 		transform.position = new Vector2(0, 0);
-		transform.scale = new Vector2(this.canvasProvider.ViewSize.x, this.canvasProvider.ViewSize.y);
+		transform.scale = this.starfieldSize;
 		transform.rotation = 0;
 
 		return entity;
 	}
 
 	private generateImage(ppm: number, luminosity: Luminosity): string {
-		const view = this.canvasProvider.ViewSize;
-		const scale = this.canvasProvider.Scale;
+		const view = this.starfieldSize;
 
 		const canvas = document.createElement('canvas');
 		canvas.width = view.x;
@@ -44,7 +48,7 @@ export default class StarfieldFactory {
 
 		ctx.clearRect(0, 0, view.x, view.y);
 		for (let i = 0; i < starCount; i++) {
-			const star: Vector2 = Vector2.getRandomVector(this.canvasProvider.ViewSize, false);
+			const star: Vector2 = Vector2.getRandomVector(this.starfieldSize, false);
 
 			ctx.beginPath();
 			ctx.moveTo(star.x, star.y);
