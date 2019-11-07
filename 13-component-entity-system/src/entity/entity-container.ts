@@ -1,23 +1,20 @@
 import { Injectable } from '../ioc/injector';
-import { IEntity } from './entity';
 import Helpers from '../helpers';
 import { IComponentType, IComponent } from '../components/component';
-import EntityProvider from '../providers/entity.provider';
+import Entity2 from './entity2';
 
 @Injectable()
 export default class EntityContainer {
-    public readonly entities: Map<string, IEntity> = new Map<string, IEntity>();
+    public readonly entities: Map<string, Entity2> = new Map<string, Entity2>();
 
-    constructor(private entityProvider: EntityProvider) {}
-
-    public putEntity(entity: IEntity) {
+    public putEntity(entity: Entity2) {
         this.entities.set(Helpers.generateRandomUniqueId(this.entities), entity);
     }
 
-    public getEntitiesWithComponents(...componentClasses: IComponentType<IComponent>[]): Array<IEntity> {
-        const result: Array<IEntity> = [];
+    public getEntitiesWithComponents(...componentClasses: IComponentType<IComponent>[]): Array<Entity2> {
+        const result: Array<Entity2> = [];
         this.entities.forEach(entity => {
-            if (componentClasses.every(componentClass => this.entityProvider.hasComponent(entity, componentClass))) {
+            if (entity.has(...componentClasses)) {
                 result.push(entity);
             }
         });

@@ -1,10 +1,9 @@
 import { Injectable } from '../ioc/injector';
-import { IEntity } from '../entity/entity';
-import EntityProvider from '../providers/entity.provider';
 import SpriteComponent from '../components/sprite.component';
 import TransformComponent from '../components/transform.component';
 import Vector2 from '../vector-2';
 import GravityAffectedComponent from '../components/gravity-affected.component';
+import Entity2 from '../entity/entity2';
 
 import planet01 from '../assets/planet01.png';
 import planet02 from '../assets/planet02.png';
@@ -26,19 +25,12 @@ import planet17 from '../assets/planet17.png';
 import planet18 from '../assets/planet18.png';
 import CanvasProvider from '../providers/canvas.provider';
 import FocusComponent from '../components/focus.component';
-import { Entity2 } from '../entity/entity2';
 
 @Injectable()
 export default class PlanetFactory {
-    constructor(private entityProvider: EntityProvider, private canvasProvider: CanvasProvider) {}
+    constructor(private canvasProvider: CanvasProvider) {}
 
-    generateSolarSystem(): IEntity[] {
-        const focus = new FocusComponent();
-        focus.isFocused = true;
-        const someentity2 = new Entity2();
-        someentity2.push(focus);
-        someentity2.get(FocusComponent);
-
+    generateSolarSystem(): Entity2[] {
         const sun = this.generatePlanet(
             this.canvasProvider.ViewSize.scale(0.5),
             new Vector2(0, 0),
@@ -112,41 +104,37 @@ export default class PlanetFactory {
         diameter: number,
         image: HTMLImageElement,
         isFocused?: boolean
-    ): IEntity {
-        const planet = this.entityProvider.generateEntity(
-            SpriteComponent,
-            TransformComponent,
-            GravityAffectedComponent,
-            FocusComponent
-        );
-
-        const sprite = this.entityProvider.getComponent(planet, SpriteComponent);
+    ): Entity2 {
+        const sprite = new SpriteComponent();
         sprite.image = image;
         sprite.cutoutPosition = new Vector2(0, 0);
         sprite.cutoutSize = new Vector2(300, 300);
         sprite.offset = new Vector2(150, 150);
 
-        let transform: TransformComponent = this.entityProvider.getComponent(planet, TransformComponent);
+        const transform = new TransformComponent();
         transform.position = position;
         transform.scale = new Vector2(diameter * 3, diameter * 3);
         transform.rotation = 0;
 
-        let gravityAssisted: GravityAffectedComponent = this.entityProvider.getComponent(
-            planet,
-            GravityAffectedComponent
-        );
+        const gravityAssisted = new GravityAffectedComponent();
         gravityAssisted.mass = Math.pow(diameter, 3);
         gravityAssisted.preUpdatedPosition = transform.position;
         gravityAssisted.velocity = speed;
         gravityAssisted.positionHistory = [];
 
-        let focus: FocusComponent = this.entityProvider.getComponent(planet, FocusComponent);
+        let focus = new FocusComponent();
         focus.isFocused = !!isFocused;
+
+        const planet = new Entity2();
+        planet.push(sprite);
+        planet.push(transform);
+        planet.push(gravityAssisted);
+        planet.push(focus);
 
         return planet;
     }
 
-    generateRandomPlanet(): IEntity {
+    generateRandomPlanet(): Entity2 {
         return this.generatePlanet(
             new Vector2(
                 Math.floor(Math.random() * this.canvasProvider.ViewSize.x),

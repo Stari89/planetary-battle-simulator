@@ -1,6 +1,6 @@
 import { IComponent, IComponentType } from '../components/component';
 
-export class Entity2 {
+export default class Entity2 {
     components: { [tag: string]: IComponent };
 
     constructor() {

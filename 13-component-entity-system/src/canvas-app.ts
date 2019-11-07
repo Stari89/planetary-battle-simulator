@@ -4,7 +4,6 @@ import InputProvider from './providers/input.provider';
 import CanvasProvider from './providers/canvas.provider';
 import SceneProvider from './providers/scene.provider';
 import EntityContainer from './entity/entity-container';
-import EntityProvider from './providers/entity.provider';
 import SpriteSystem from './systems/sprite.system';
 import GravitySystem from './systems/gravity.system';
 import PlanetFactory from './factories/planet.factory';
@@ -17,22 +16,21 @@ import StarfieldSystem from './systems/starfield.system';
 
 @Injectable()
 export default class CanvasApp {
-	constructor(
-		private gameLoopProvider: GameLoopProvider,
-		private inpurProvider: InputProvider,
-		private canvasProvider: CanvasProvider,
-		private entityContainer: EntityContainer,
-		private entityBuilder: EntityProvider,
-		private sceneFactory: SceneFactory,
-		private sceneProvider: SceneProvider,
-		private planetFactory: PlanetFactory,
-		private starfieldFactory: StarfieldFactory,
-		private starfieldSystem: StarfieldSystem,
-		private gridSystem: GridSystem,
-		private planetSystem: GravitySystem,
-		private spriteSystem: SpriteSystem,
-		private cameraSystem: CameraSystem
-	) {
-		gameLoopProvider.run();
-	}
+    constructor(
+        private gameLoopProvider: GameLoopProvider,
+        private inpurProvider: InputProvider,
+        private canvasProvider: CanvasProvider,
+        private entityContainer: EntityContainer,
+        private sceneFactory: SceneFactory,
+        private sceneProvider: SceneProvider,
+        private planetFactory: PlanetFactory,
+        private starfieldFactory: StarfieldFactory,
+        private starfieldSystem: StarfieldSystem,
+        private gridSystem: GridSystem,
+        private planetSystem: GravitySystem,
+        private spriteSystem: SpriteSystem,
+        private cameraSystem: CameraSystem
+    ) {
+        gameLoopProvider.run();
+    }
 }

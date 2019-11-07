@@ -2,7 +2,6 @@ import { Injectable } from '../ioc/injector';
 import { OnUpdate } from '../lifecycle';
 import { ILoopInfo } from '../providers/game-loop.provider';
 import EntityContainer from '../entity/entity-container';
-import EntityProvider from '../providers/entity.provider';
 import TransformComponent from '../components/transform.component';
 import CameraComponent from '../components/camera.component';
 import Vector2 from '../vector-2';
@@ -14,7 +13,6 @@ import CanvasProvider from '../providers/canvas.provider';
 export default class CameraSystem implements OnUpdate {
     constructor(
         private entityContainer: EntityContainer,
-        private entityProvider: EntityProvider,
         private inputProvider: InputProvider,
         private canvasProvider: CanvasProvider
     ) {}
@@ -22,16 +20,15 @@ export default class CameraSystem implements OnUpdate {
     public onUpdate(loopInfo: ILoopInfo) {
         const focusEntity = this.entityContainer
             .getEntitiesWithComponents(FocusComponent, TransformComponent)
-            .find(x => this.entityProvider.getComponent(x, FocusComponent).isFocused);
+            .find(entity => entity.get(FocusComponent).isFocused);
         let focus = new Vector2(0, 0);
         if (!!focusEntity) {
-            focus = this.entityProvider.getComponent(focusEntity, TransformComponent).position;
+            focus = focusEntity.get(TransformComponent).position;
         }
         focus = focus.add(this.canvasProvider.ViewSize.scale(-0.5));
 
         this.entityContainer.getEntitiesWithComponents(TransformComponent, CameraComponent).forEach(entity => {
-            const cameraComponent = this.entityProvider.getComponent(entity, CameraComponent);
-            const transformComponent = this.entityProvider.getComponent(entity, TransformComponent);
+            const transformComponent = entity.get(TransformComponent);
             transformComponent.position = focus;
 
             // if (this.inputProvider.KeyboardState.pressedKeys.some(key => key === 'ArrowUp')) {
