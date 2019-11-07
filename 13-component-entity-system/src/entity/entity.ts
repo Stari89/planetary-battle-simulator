@@ -1,8 +1,8 @@
-import { IComponent, IComponentClass } from '../components/component';
+import { IComponent, IComponentType } from '../components/component';
 
 export interface IEntity {
-	components: { [tag: string]: IComponent };
-	componentClasses: {
-		[tag: string]: IComponentClass<IComponent>;
-	};
+    components: { [tag: string]: IComponent };
+    componentClasses: {
+        [tag: string]: IComponentType<IComponent>;
+    };
 }
