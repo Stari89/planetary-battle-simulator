@@ -14,19 +14,15 @@ export default class StarfieldFactory {
     }
 
     generateStarfield(ppm: number, luminosity: Luminosity): Entity {
-        const starfield = new StarfieldComponent();
-        starfield.image = new Image();
-        starfield.image.src = this.generateImage(ppm, luminosity);
-        starfield.cutoutPosition = new Vector2(0, 0);
-        starfield.cutoutSize = this.starfieldSize;
-        starfield.offset = new Vector2(0, 0);
-        starfield.luminosity = luminosity;
-        starfield.tileSize = this.starfieldSize;
-
-        const transform = new TransformComponent();
-        transform.position = new Vector2(0, 0);
-        transform.scale = this.starfieldSize;
-        transform.rotation = 0;
+        const img = new Image();
+        img.src = this.generateImage(ppm, luminosity);
+        const starfield = new StarfieldComponent({
+            image: img,
+            cutoutSize: this.starfieldSize,
+            luminosity: luminosity,
+            tileSize: this.starfieldSize
+        });
+        const transform = new TransformComponent({ scale: this.starfieldSize });
 
         const entity = new Entity();
         entity.push(starfield);

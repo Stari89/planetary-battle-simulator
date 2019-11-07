@@ -44,35 +44,28 @@ export default class SceneFactory {
     }
 
     private generateGrid(resolution: number, weight: GridWeight): Entity {
-        const gridComponent = new GridComponent();
-        gridComponent.resolution = resolution;
-        gridComponent.weight = weight;
+        const gridComponent = new GridComponent({
+            resolution: resolution,
+            weight: weight
+        });
         const grid = new Entity();
         grid.push(gridComponent);
         return grid;
     }
 
     private generateCamera(): Entity {
-        const transform = new TransformComponent();
-        transform.position = new Vector2(0, 0);
-        transform.scale = new Vector2(1, 1);
-        transform.rotation = 0;
-
         const camera = new Entity();
-        camera.push(transform);
+        camera.push(new TransformComponent());
         camera.push(new CameraComponent());
 
         return camera;
     }
 
     private generateSplash(): Entity {
-        const transform = new TransformComponent();
-        transform.position = new Vector2(this.canvasProvider.ViewSize.x / 2, this.canvasProvider.ViewSize.y / 2);
-        transform.scale = new Vector2(
-            this.canvasProvider.ViewSize.x / 3,
-            (this.canvasProvider.ViewSize.x / 3 / 1200) * 859
-        );
-        transform.rotation = 0;
+        const transform = new TransformComponent({
+            position: new Vector2(this.canvasProvider.ViewSize.x / 2, this.canvasProvider.ViewSize.y / 2),
+            scale: new Vector2(this.canvasProvider.ViewSize.x / 3, (this.canvasProvider.ViewSize.x / 3 / 1200) * 859)
+        });
 
         const sprite = new SpriteComponent();
         sprite.image = new Image();

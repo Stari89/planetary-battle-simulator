@@ -105,25 +105,25 @@ export default class PlanetFactory {
         image: HTMLImageElement,
         isFocused?: boolean
     ): Entity {
-        const sprite = new SpriteComponent();
-        sprite.image = image;
-        sprite.cutoutPosition = new Vector2(0, 0);
-        sprite.cutoutSize = new Vector2(300, 300);
-        sprite.offset = new Vector2(150, 150);
+        const sprite = new SpriteComponent({
+            image: image,
+            cutoutPosition: new Vector2(0, 0),
+            cutoutSize: new Vector2(300, 300),
+            offset: new Vector2(150, 150)
+        });
 
-        const transform = new TransformComponent();
-        transform.position = position;
-        transform.scale = new Vector2(diameter * 3, diameter * 3);
-        transform.rotation = 0;
+        const transform = new TransformComponent({
+            position: position,
+            scale: new Vector2(diameter * 3, diameter * 3)
+        });
 
-        const gravityAssisted = new GravityAffectedComponent();
-        gravityAssisted.mass = Math.pow(diameter, 3);
-        gravityAssisted.preUpdatedPosition = transform.position;
-        gravityAssisted.velocity = speed;
-        gravityAssisted.positionHistory = [];
+        const gravityAssisted = new GravityAffectedComponent({
+            mass: Math.pow(diameter, 3),
+            preUpdatedPosition: transform.position,
+            velocity: speed
+        });
 
-        let focus = new FocusComponent();
-        focus.isFocused = !!isFocused;
+        let focus = new FocusComponent({ isFocused: isFocused });
 
         const planet = new Entity();
         planet.push(sprite);
