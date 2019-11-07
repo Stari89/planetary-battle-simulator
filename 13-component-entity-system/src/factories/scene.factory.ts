@@ -9,7 +9,7 @@ import CanvasProvider from '../providers/canvas.provider';
 import Vector2 from '../vector-2';
 import CameraComponent from '../components/camera.component';
 import { Luminosity } from '../components/starfield.component';
-import Entity2 from '../entity/entity2';
+import Entity from '../entity/entity';
 
 @Injectable()
 export default class SceneFactory {
@@ -19,8 +19,8 @@ export default class SceneFactory {
         private canvasProvider: CanvasProvider
     ) {}
 
-    generateSimulationScene(): Array<Entity2> {
-        const entities: Array<Entity2> = [];
+    generateSimulationScene(): Array<Entity> {
+        const entities: Array<Entity> = [];
 
         entities.push(this.generateCamera());
 
@@ -36,36 +36,36 @@ export default class SceneFactory {
         return entities;
     }
 
-    generateSplashScene(): Array<Entity2> {
-        const entities: Array<Entity2> = [];
+    generateSplashScene(): Array<Entity> {
+        const entities: Array<Entity> = [];
         entities.push(this.generateCamera());
         entities.push(this.generateSplash());
         return entities;
     }
 
-    private generateGrid(resolution: number, weight: GridWeight): Entity2 {
+    private generateGrid(resolution: number, weight: GridWeight): Entity {
         const gridComponent = new GridComponent();
         gridComponent.resolution = resolution;
         gridComponent.weight = weight;
-        const grid = new Entity2();
+        const grid = new Entity();
         grid.push(gridComponent);
         return grid;
     }
 
-    private generateCamera(): Entity2 {
+    private generateCamera(): Entity {
         const transform = new TransformComponent();
         transform.position = new Vector2(0, 0);
         transform.scale = new Vector2(1, 1);
         transform.rotation = 0;
 
-        const camera = new Entity2();
+        const camera = new Entity();
         camera.push(transform);
         camera.push(new CameraComponent());
 
         return camera;
     }
 
-    private generateSplash(): Entity2 {
+    private generateSplash(): Entity {
         const transform = new TransformComponent();
         transform.position = new Vector2(this.canvasProvider.ViewSize.x / 2, this.canvasProvider.ViewSize.y / 2);
         transform.scale = new Vector2(
@@ -81,7 +81,7 @@ export default class SceneFactory {
         sprite.cutoutSize = new Vector2(1200, 859);
         sprite.offset = new Vector2(600, 429);
 
-        const splash = new Entity2();
+        const splash = new Entity();
         splash.push(transform);
         splash.push(sprite);
 

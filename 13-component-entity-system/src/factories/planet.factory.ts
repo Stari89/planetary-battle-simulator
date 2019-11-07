@@ -3,7 +3,7 @@ import SpriteComponent from '../components/sprite.component';
 import TransformComponent from '../components/transform.component';
 import Vector2 from '../vector-2';
 import GravityAffectedComponent from '../components/gravity-affected.component';
-import Entity2 from '../entity/entity2';
+import Entity from '../entity/entity';
 
 import planet01 from '../assets/planet01.png';
 import planet02 from '../assets/planet02.png';
@@ -30,7 +30,7 @@ import FocusComponent from '../components/focus.component';
 export default class PlanetFactory {
     constructor(private canvasProvider: CanvasProvider) {}
 
-    generateSolarSystem(): Entity2[] {
+    generateSolarSystem(): Entity[] {
         const sun = this.generatePlanet(
             this.canvasProvider.ViewSize.scale(0.5),
             new Vector2(0, 0),
@@ -104,7 +104,7 @@ export default class PlanetFactory {
         diameter: number,
         image: HTMLImageElement,
         isFocused?: boolean
-    ): Entity2 {
+    ): Entity {
         const sprite = new SpriteComponent();
         sprite.image = image;
         sprite.cutoutPosition = new Vector2(0, 0);
@@ -125,7 +125,7 @@ export default class PlanetFactory {
         let focus = new FocusComponent();
         focus.isFocused = !!isFocused;
 
-        const planet = new Entity2();
+        const planet = new Entity();
         planet.push(sprite);
         planet.push(transform);
         planet.push(gravityAssisted);
@@ -134,7 +134,7 @@ export default class PlanetFactory {
         return planet;
     }
 
-    generateRandomPlanet(): Entity2 {
+    generateRandomPlanet(): Entity {
         return this.generatePlanet(
             new Vector2(
                 Math.floor(Math.random() * this.canvasProvider.ViewSize.x),

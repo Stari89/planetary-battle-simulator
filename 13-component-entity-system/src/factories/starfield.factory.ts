@@ -3,7 +3,7 @@ import CanvasProvider from '../providers/canvas.provider';
 import StarfieldComponent, { Luminosity } from '../components/starfield.component';
 import TransformComponent from '../components/transform.component';
 import Vector2 from '../vector-2';
-import Entity2 from '../entity/entity2';
+import Entity from '../entity/entity';
 
 @Injectable()
 export default class StarfieldFactory {
@@ -13,7 +13,7 @@ export default class StarfieldFactory {
         this.starfieldSize = canvasProvider.ViewSize;
     }
 
-    generateStarfield(ppm: number, luminosity: Luminosity): Entity2 {
+    generateStarfield(ppm: number, luminosity: Luminosity): Entity {
         const starfield = new StarfieldComponent();
         starfield.image = new Image();
         starfield.image.src = this.generateImage(ppm, luminosity);
@@ -28,7 +28,7 @@ export default class StarfieldFactory {
         transform.scale = this.starfieldSize;
         transform.rotation = 0;
 
-        const entity = new Entity2();
+        const entity = new Entity();
         entity.push(starfield);
         entity.push(transform);
 

@@ -2,7 +2,7 @@ import { Injectable } from '../ioc/injector';
 import { OnRun, OnBeforeUpdate } from '../lifecycle';
 import EntityContainer from '../entity/entity-container';
 import SceneFactory from '../factories/scene.factory';
-import Entity2 from '../entity/entity2';
+import Entity from '../entity/entity';
 
 export enum Scenes {
     Splash,
@@ -13,7 +13,7 @@ export enum Scenes {
 export default class SceneProvider implements OnRun, OnBeforeUpdate {
     private activeScene: Scenes;
     private beforeNextUpdateSwitchTo: Scenes;
-    private nextSceneEntities: Array<Entity2>;
+    private nextSceneEntities: Array<Entity>;
 
     constructor(private sceneFactory: SceneFactory, private entityContainer: EntityContainer) {
         this.loadSplashScene = this.loadSplashScene.bind(this);
@@ -48,7 +48,7 @@ export default class SceneProvider implements OnRun, OnBeforeUpdate {
         }, 500);
     }
 
-    private switchScene(entities: Array<Entity2>) {
+    private switchScene(entities: Array<Entity>) {
         this.entityContainer.entities.clear();
         entities.forEach(entity => {
             this.entityContainer.putEntity(entity);
