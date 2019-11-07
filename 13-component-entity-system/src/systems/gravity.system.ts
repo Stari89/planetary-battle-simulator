@@ -29,8 +29,10 @@ export default class GravitySystem implements OnBeforeUpdate, OnUpdate, OnRender
             const transformComponent = planet.get(TransformComponent);
 
             gravityAffectedComponent.netAcceleration = new Vector2(0, 0);
-            this.entityContainer.entities.forEach(otherPlanet => {
-                if (planet !== otherPlanet && otherPlanet.has(TransformComponent, GravityAffectedComponent)) {
+            this.entityContainer
+                .getEntitiesWithComponents(TransformComponent, GravityAffectedComponent)
+                .forEach(otherPlanet => {
+                    if (planet === otherPlanet) return;
                     const otherGravityAffectedComponent = otherPlanet.get(GravityAffectedComponent);
 
                     const distance = otherGravityAffectedComponent.preUpdatedPosition.substract(
@@ -42,8 +44,7 @@ export default class GravitySystem implements OnBeforeUpdate, OnUpdate, OnRender
                     gravityAffectedComponent.netAcceleration = gravityAffectedComponent.netAcceleration.add(
                         acceleration
                     );
-                }
-            });
+                });
 
             const deltaVelocity = gravityAffectedComponent.netAcceleration.scale(loopInfo.dt);
             gravityAffectedComponent.velocity = gravityAffectedComponent.velocity.add(deltaVelocity);

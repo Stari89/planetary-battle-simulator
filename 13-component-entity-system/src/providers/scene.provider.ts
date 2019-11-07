@@ -49,9 +49,9 @@ export default class SceneProvider implements OnRun, OnBeforeUpdate {
     }
 
     private switchScene(entities: Array<Entity>) {
-        this.entityContainer.entities.clear();
+        this.entityContainer.clear();
         entities.forEach(entity => {
-            this.entityContainer.putEntity(entity);
+            this.entityContainer.push(entity);
         });
     }
 }
