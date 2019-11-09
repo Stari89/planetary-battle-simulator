@@ -63,7 +63,6 @@ export default class SceneFactory {
 
     private generateSplash(): Entity {
         const transform = new TransformComponent({
-            position: new Vector2(this.canvasProvider.ViewSize.x / 2, this.canvasProvider.ViewSize.y / 2),
             scale: new Vector2(this.canvasProvider.ViewSize.x / 3, (this.canvasProvider.ViewSize.x / 3 / 1200) * 859)
         });
 
