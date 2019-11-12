@@ -1,10 +1,18 @@
 export namespace Colors {
     export function ghostA(color: Colors): string {
-        return `${color.substring(0, 3)}00${color.substring(5)}`;
+        const red = parseInt(`0x${color.substr(1, 2)}`);
+        const blue = parseInt(`0x${color.substr(5, 2)}`);
+        const avg = Math.floor((red + blue) / 2);
+        const alpha = `00${avg.toString(16)}`.slice(-2);
+        return `#FF00FF${alpha}`;
     }
 
     export function ghostB(color: Colors): string {
-        return `${color.substring(0, 1)}00${color.substring(3)}`;
+        const green = parseInt(`0x${color.substr(3, 2)}`);
+        const blue = parseInt(`0x${color.substr(5, 2)}`);
+        const avg = Math.floor((green + blue) / 2);
+        const alpha = `00${avg.toString(16)}`.slice(-2);
+        return `#00FFFF${alpha}`;
     }
 }
 
