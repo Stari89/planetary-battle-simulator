@@ -13,6 +13,7 @@ import StarfieldFactory from './factories/starfield.factory';
 import SceneFactory from './factories/scene.factory';
 import CameraSystem from './systems/camera.system';
 import StarfieldSystem from './systems/starfield.system';
+import PolygonSystem from './systems/polygon.system';
 
 @Injectable()
 export default class CanvasApp {
@@ -29,6 +30,7 @@ export default class CanvasApp {
         private gridSystem: GridSystem,
         private planetSystem: GravitySystem,
         private spriteSystem: SpriteSystem,
+        private polygonSystem: PolygonSystem,
         private cameraSystem: CameraSystem
     ) {
         gameLoopProvider.run();
