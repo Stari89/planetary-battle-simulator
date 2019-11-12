@@ -1,7 +1,7 @@
 import { Injectable } from '../ioc/injector';
 import SpriteComponent from '../components/sprite.component';
 import TransformComponent from '../components/transform.component';
-import Vector2 from '../vector-2';
+import Vector2 from '../util/vector-2';
 import GravityAffectedComponent from '../components/gravity-affected.component';
 import Entity from '../entity/entity';
 

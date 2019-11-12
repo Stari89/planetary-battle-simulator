@@ -1,10 +1,10 @@
 import { Injectable } from '../ioc/injector';
-import { OnUpdate } from '../lifecycle';
+import { OnUpdate } from '../util/lifecycle';
 import { ILoopInfo } from '../providers/game-loop.provider';
 import EntityContainer from '../entity/entity-container';
 import TransformComponent from '../components/transform.component';
 import CameraComponent from '../components/camera.component';
-import Vector2 from '../vector-2';
+import Vector2 from '../util/vector-2';
 import InputProvider from '../providers/input.provider';
 import FocusComponent from '../components/focus.component';
 import CanvasProvider from '../providers/canvas.provider';

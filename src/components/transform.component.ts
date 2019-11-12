@@ -1,4 +1,4 @@
-import Vector2 from '../vector-2';
+import Vector2 from '../util/vector-2';
 import { IComponent } from './component';
 
 export default class TransformComponent implements IComponent {

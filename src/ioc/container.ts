@@ -1,5 +1,5 @@
 import { Type } from './util';
-import Helpers from '../helpers';
+import Helpers from '../util/helpers';
 
 export class Container extends Map {
     private static _instance: Container;

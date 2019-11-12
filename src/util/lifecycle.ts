@@ -1,4 +1,4 @@
-import { ILoopInfo } from './providers/game-loop.provider';
+import { ILoopInfo } from '../providers/game-loop.provider';
 
 export enum LifecycleEvents {
     OnRun = 'onRun',

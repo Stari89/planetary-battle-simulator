@@ -6,7 +6,7 @@ import TransformComponent from '../components/transform.component';
 import SpriteComponent from '../components/sprite.component';
 import splashSrc from '../assets/splash.jpg';
 import CanvasProvider from '../providers/canvas.provider';
-import Vector2 from '../vector-2';
+import Vector2 from '../util/vector-2';
 import CameraComponent from '../components/camera.component';
 import { Luminosity } from '../components/starfield.component';
 import Entity from '../entity/entity';

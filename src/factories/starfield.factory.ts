@@ -2,7 +2,7 @@ import { Injectable } from '../ioc/injector';
 import CanvasProvider from '../providers/canvas.provider';
 import StarfieldComponent, { Luminosity } from '../components/starfield.component';
 import TransformComponent from '../components/transform.component';
-import Vector2 from '../vector-2';
+import Vector2 from '../util/vector-2';
 import Entity from '../entity/entity';
 
 @Injectable()

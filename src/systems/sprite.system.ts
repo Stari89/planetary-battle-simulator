@@ -2,7 +2,7 @@ import { Injectable } from '../ioc/injector';
 import EntityContainer from '../entity/entity-container';
 import CanvasProvider from '../providers/canvas.provider';
 import { ILoopInfo } from '../providers/game-loop.provider';
-import { OnRender } from '../lifecycle';
+import { OnRender } from '../util/lifecycle';
 import TransformComponent from '../components/transform.component';
 import SpriteComponent from '../components/sprite.component';
 import CameraComponent from '../components/camera.component';

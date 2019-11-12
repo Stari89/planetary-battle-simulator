@@ -1,5 +1,5 @@
 import { Injectable } from '../ioc/injector';
-import { OnRun, OnBeforeUpdate } from '../lifecycle';
+import { OnRun, OnBeforeUpdate } from '../util/lifecycle';
 import EntityContainer from '../entity/entity-container';
 import SceneFactory from '../factories/scene.factory';
 import Entity from '../entity/entity';

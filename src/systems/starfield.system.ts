@@ -1,12 +1,12 @@
 import { Injectable } from '../ioc/injector';
-import { OnRender } from '../lifecycle';
+import { OnRender } from '../util/lifecycle';
 import EntityContainer from '../entity/entity-container';
 import CanvasProvider from '../providers/canvas.provider';
 import { ILoopInfo } from '../providers/game-loop.provider';
 import TransformComponent from '../components/transform.component';
 import StarfieldComponent, { Luminosity } from '../components/starfield.component';
 import CameraComponent from '../components/camera.component';
-import Vector2 from '../vector-2';
+import Vector2 from '../util/vector-2';
 
 @Injectable()
 export default class StarfieldSystem implements OnRender {

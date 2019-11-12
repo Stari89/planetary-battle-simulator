@@ -1,6 +1,6 @@
 import { Injectable } from '../ioc/injector';
 import EntityContainer from '../entity/entity-container';
-import { OnRender } from '../lifecycle';
+import { OnRender } from '../util/lifecycle';
 import CanvasProvider from '../providers/canvas.provider';
 import { ILoopInfo } from '../providers/game-loop.provider';
 import TransformComponent from '../components/transform.component';
