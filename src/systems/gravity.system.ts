@@ -10,7 +10,7 @@ import CameraComponent from '../components/camera.component';
 
 @Injectable()
 export default class GravitySystem implements OnBeforeUpdate, OnUpdate, OnRender {
-    private readonly G: number = 0.00001;
+    private readonly G: number = 0.00000000075;
 
     constructor(private entityContainer: EntityContainer, private canvasProvider: CanvasProvider) {}
 

@@ -36,10 +36,10 @@ export default class PolygonSystem implements OnRender {
                     ctx.lineTo(point.x - 1, point.y - 1);
                 });
                 ctx.closePath();
-                ctx.fillStyle = Colors.ghostA(polygonComponent.lineColor);
-                ctx.fill();
-                //ctx.strokeStyle = Colors.ghostA(polygonComponent.lineColor);
-                //ctx.stroke();
+                // ctx.fillStyle = Colors.ghostA(polygonComponent.lineColor);
+                // ctx.fill();
+                ctx.strokeStyle = Colors.ghostA(polygonComponent.lineColor);
+                ctx.stroke();
 
                 ctx.beginPath();
                 ctx.moveTo(points[0].x + 1, points[0].y + 1);
@@ -47,10 +47,10 @@ export default class PolygonSystem implements OnRender {
                     ctx.lineTo(point.x + 1, point.y + 1);
                 });
                 ctx.closePath();
-                ctx.fillStyle = Colors.ghostB(polygonComponent.lineColor);
-                ctx.fill();
-                // ctx.strokeStyle = Colors.ghostB(polygonComponent.lineColor);
-                // ctx.stroke();
+                // ctx.fillStyle = Colors.ghostB(polygonComponent.lineColor);
+                // ctx.fill();
+                ctx.strokeStyle = Colors.ghostB(polygonComponent.lineColor);
+                ctx.stroke();
 
                 // draw poly
                 ctx.beginPath();
@@ -59,10 +59,10 @@ export default class PolygonSystem implements OnRender {
                     ctx.lineTo(point.x, point.y);
                 });
                 ctx.closePath();
-                ctx.fillStyle = polygonComponent.lineColor;
-                ctx.fill();
-                //ctx.strokeStyle = polygonComponent.lineColor;
-                //ctx.stroke();
+                // ctx.fillStyle = polygonComponent.lineColor;
+                // ctx.fill();
+                ctx.strokeStyle = polygonComponent.lineColor;
+                ctx.stroke();
             });
         });
     }
