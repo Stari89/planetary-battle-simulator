@@ -10,6 +10,8 @@ export interface IKeyboardState {
 
 export interface IMouseState {
     position: Vector2;
+    previousPosition: Vector2;
+    deltaPosition: Vector2;
     pressedButtons: Array<number>;
     buttonDowns: Array<number>;
     buttonUps: Array<number>;
@@ -77,6 +79,8 @@ export default class InputProvider implements OnAfterUpdate {
         };
         this.mouseState = {
             position: new Vector2(0, 0),
+            previousPosition: new Vector2(0, 0),
+            deltaPosition: new Vector2(0, 0),
             pressedButtons: [],
             buttonDowns: [],
             buttonUps: [],
@@ -92,6 +96,8 @@ export default class InputProvider implements OnAfterUpdate {
     public onAfterUpdate(): void {
         this.keyboardState.keyDowns = [];
         this.keyboardState.keyUps = [];
+        this.mouseState.previousPosition = new Vector2(this.mouseState.position.x, this.mouseState.position.y);
+        this.mouseState.deltaPosition = new Vector2(0, 0);
         this.mouseState.buttonDowns = [];
         this.mouseState.buttonUps = [];
         this.mouseState.scrollDelta = new Vector2(0, 0);
@@ -122,6 +128,7 @@ export default class InputProvider implements OnAfterUpdate {
     private onMouseMove(e: MouseEvent): void {
         this.mouseState.position.x = e.x;
         this.mouseState.position.y = e.y;
+        this.mouseState.deltaPosition = this.mouseState.position.substract(this.mouseState.previousPosition);
     }
 
     private onMouseDown(e: MouseEvent): void {
