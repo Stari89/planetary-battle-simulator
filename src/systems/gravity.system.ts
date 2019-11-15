@@ -35,7 +35,7 @@ export default class GravitySystem implements OnBeforeUpdate, OnUpdate, OnRender
                     if (planet === otherPlanet) return;
                     const otherGravityAffectedComponent = otherPlanet.get(GravityAffectedComponent);
 
-                    const distance = otherGravityAffectedComponent.preUpdatedPosition.substract(
+                    const distance = otherGravityAffectedComponent.preUpdatedPosition.subtract(
                         gravityAffectedComponent.preUpdatedPosition
                     );
                     const accelerationMagnitude =

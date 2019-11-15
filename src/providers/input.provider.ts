@@ -128,7 +128,7 @@ export default class InputProvider implements OnAfterUpdate {
     private onMouseMove(e: MouseEvent): void {
         this.mouseState.position.x = e.x;
         this.mouseState.position.y = e.y;
-        this.mouseState.deltaPosition = this.mouseState.position.substract(this.mouseState.previousPosition);
+        this.mouseState.deltaPosition = this.mouseState.position.subtract(this.mouseState.previousPosition);
     }
 
     private onMouseDown(e: MouseEvent): void {

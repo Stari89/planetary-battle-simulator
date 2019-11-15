@@ -21,7 +21,7 @@ export default class CameraSystem implements OnUpdate {
         this.entityContainer.getEntitiesWithComponents(TransformComponent, CameraComponent).forEach(entity => {
             const transformComponent = entity.get(TransformComponent);
             if (this.inputProvider.MouseState.pressedButtons.some(b => b === 0)) {
-                transformComponent.position = transformComponent.position.substract(
+                transformComponent.position = transformComponent.position.subtract(
                     this.inputProvider.MouseState.deltaPosition
                 );
             }

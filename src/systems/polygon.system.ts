@@ -76,7 +76,7 @@ export default class PolygonSystem implements OnRender {
         for (let i = 0; i < polygonComponent.points.length; i++) {
             let point = polygonComponent.points[i].rotate(transformComponent.rotation, polygonComponent.center);
             point = new Vector2(point.x * transformComponent.scale.x, point.y * transformComponent.scale.y);
-            point = point.substract(cameraTransform.position).add(transformComponent.position);
+            point = point.subtract(cameraTransform.position).add(transformComponent.position);
             result.push(point);
         }
         return result;
