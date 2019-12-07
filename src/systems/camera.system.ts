@@ -6,7 +6,6 @@ import TransformComponent from '../components/transform.component';
 import CameraComponent from '../components/camera.component';
 import InputProvider from '../providers/input.provider';
 import CanvasProvider from '../providers/canvas.provider';
-import Vector2 from '../util/vector-2';
 
 @Injectable()
 export default class CameraSystem implements OnUpdate {
