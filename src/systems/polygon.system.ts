@@ -74,9 +74,16 @@ export default class PolygonSystem implements OnRender {
     ): Array<Vector2> {
         const result: Array<Vector2> = [];
         for (let i = 0; i < polygonComponent.points.length; i++) {
+            // Step 1: point relative to the position of the transformComponent (rotated)
             let point = polygonComponent.points[i].rotate(transformComponent.rotation, polygonComponent.center);
+            // Step 2: point relative to the position of the transformComponent (rotated and scaled)
             point = new Vector2(point.x * transformComponent.scale.x, point.y * transformComponent.scale.y);
+            // Step 3: point relative to the position of the camera
             point = point.subtract(cameraTransform.position).add(transformComponent.position);
+            // Step 4: point relative to the position of the camera (scaled)
+            point = point.scale(cameraTransform.scale.x);
+            // Step 5: point relative to the top left corner of the screen
+            point = point.add(this.canvasProvider.ViewSize.scale(0.5));
             result.push(point);
         }
         return result;
