@@ -21,7 +21,7 @@ export default class CameraSystem implements OnUpdate {
             const transformComponent = entity.get(TransformComponent);
             if (this.inputProvider.MouseState.pressedButtons.some(b => b === 0)) {
                 transformComponent.position = transformComponent.position.subtract(
-                    this.inputProvider.MouseState.deltaPosition
+                    this.inputProvider.MouseState.deltaPosition.scale(1 / transformComponent.scale.x)
                 );
             }
 
