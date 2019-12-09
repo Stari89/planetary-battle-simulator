@@ -35,7 +35,9 @@ export default class PolygonSystem implements OnRender {
                 points.forEach(point => {
                     ctx.lineTo(point.x - 1, point.y - 1);
                 });
-                ctx.closePath();
+                if (polygonComponent.closePath) {
+                    ctx.closePath();
+                }
                 // ctx.fillStyle = Colors.ghostA(polygonComponent.lineColor);
                 // ctx.fill();
                 ctx.strokeStyle = Colors.ghostA(polygonComponent.lineColor);
@@ -46,7 +48,9 @@ export default class PolygonSystem implements OnRender {
                 points.forEach(point => {
                     ctx.lineTo(point.x + 1, point.y + 1);
                 });
-                ctx.closePath();
+                if (polygonComponent.closePath) {
+                    ctx.closePath();
+                }
                 // ctx.fillStyle = Colors.ghostB(polygonComponent.lineColor);
                 // ctx.fill();
                 ctx.strokeStyle = Colors.ghostB(polygonComponent.lineColor);
@@ -58,7 +62,9 @@ export default class PolygonSystem implements OnRender {
                 points.forEach(point => {
                     ctx.lineTo(point.x, point.y);
                 });
-                ctx.closePath();
+                if (polygonComponent.closePath) {
+                    ctx.closePath();
+                }
                 // ctx.fillStyle = polygonComponent.lineColor;
                 // ctx.fill();
                 ctx.strokeStyle = polygonComponent.lineColor;
