@@ -2,9 +2,11 @@ import { IComponent, IComponentType } from '../components/component';
 
 export default class Entity {
     components: { [tag: string]: IComponent };
+    children: Entity[];
 
     constructor() {
         this.components = {};
+        this.children = [];
     }
 
     public get<T extends IComponent>(componentClass: IComponentType<T>): T {

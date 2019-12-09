@@ -7,13 +7,13 @@ import EntityContainer from './entity/entity-container';
 import SpriteSystem from './systems/sprite.system';
 import GravitySystem from './systems/gravity.system';
 import PlanetFactory from './factories/planet.factory';
-import ForceVisualizationSystem from './systems/force-visualization.system';
 import GridSystem from './systems/grid.system';
 import StarfieldFactory from './factories/starfield.factory';
 import SceneFactory from './factories/scene.factory';
 import CameraSystem from './systems/camera.system';
 import StarfieldSystem from './systems/starfield.system';
 import PolygonSystem from './systems/polygon.system';
+import TrailSystem from './systems/trail.system';
 
 @Injectable()
 export default class CanvasApp {
@@ -30,6 +30,7 @@ export default class CanvasApp {
         private gridSystem: GridSystem,
         private planetSystem: GravitySystem,
         private spriteSystem: SpriteSystem,
+        private trailSystem: TrailSystem,
         private polygonSystem: PolygonSystem,
         private cameraSystem: CameraSystem
     ) {

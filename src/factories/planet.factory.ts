@@ -6,6 +6,7 @@ import Entity from '../entity/entity';
 import FocusComponent from '../components/focus.component';
 import PolygonComponent from '../components/polygon.component';
 import { Colors } from '../util/color';
+import TrailComponent from '../components/trail.component';
 
 @Injectable()
 export default class PlanetFactory {
@@ -16,7 +17,13 @@ export default class PlanetFactory {
         const p1 = this.generatePlanet(new Vector2(400, 0), new Vector2(0, 0.0575), 24, Colors.Grey);
         const p2 = this.generatePlanet(new Vector2(-400, 0), new Vector2(0, -0.0575), 24, Colors.Grey);
 
-        return [sun, p1, p2];
+        const p1Trail = this.generateTrail();
+        const p2Trail = this.generateTrail();
+
+        p1.children.push(p1Trail);
+        p2.children.push(p2Trail);
+
+        return [sun, p1, p2, p1Trail, p2Trail];
     }
 
     generatePlanet(position: Vector2, speed: Vector2, diameter: number, color: Colors, isFocused?: boolean): Entity {
@@ -52,5 +59,17 @@ export default class PlanetFactory {
         planet.push(polygon);
 
         return planet;
+    }
+
+    generateTrail(): Entity {
+        const trail = new TrailComponent();
+        const transform = new TransformComponent();
+        const polygon = new PolygonComponent({ lineColor: Colors.Grey });
+
+        const trailEntity = new Entity();
+        trailEntity.push(trail);
+        trailEntity.push(transform);
+        trailEntity.push(polygon);
+        return trailEntity;
     }
 }
