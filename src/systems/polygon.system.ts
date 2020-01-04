@@ -6,7 +6,6 @@ import CanvasProvider from '../providers/canvas.provider';
 import PolygonComponent from '../components/polygon.component';
 import TransformComponent from '../components/transform.component';
 import Vector2 from '../util/vector-2';
-import { Colors } from '../util/color';
 import CameraComponent from '../components/camera.component';
 
 @Injectable()
@@ -38,9 +37,7 @@ export default class PolygonSystem implements OnRender {
                 if (polygonComponent.closePath) {
                     ctx.closePath();
                 }
-                // ctx.fillStyle = Colors.ghostA(polygonComponent.lineColor);
-                // ctx.fill();
-                ctx.strokeStyle = Colors.ghostA(polygonComponent.lineColor);
+                ctx.strokeStyle = polygonComponent.lineColor.ghostRed.toString();
                 ctx.stroke();
 
                 ctx.beginPath();
@@ -51,9 +48,7 @@ export default class PolygonSystem implements OnRender {
                 if (polygonComponent.closePath) {
                     ctx.closePath();
                 }
-                // ctx.fillStyle = Colors.ghostB(polygonComponent.lineColor);
-                // ctx.fill();
-                ctx.strokeStyle = Colors.ghostB(polygonComponent.lineColor);
+                ctx.strokeStyle = polygonComponent.lineColor.ghostBlue.toString();
                 ctx.stroke();
 
                 // draw poly
@@ -65,9 +60,7 @@ export default class PolygonSystem implements OnRender {
                 if (polygonComponent.closePath) {
                     ctx.closePath();
                 }
-                // ctx.fillStyle = polygonComponent.lineColor;
-                // ctx.fill();
-                ctx.strokeStyle = polygonComponent.lineColor;
+                ctx.strokeStyle = polygonComponent.lineColor.toString();
                 ctx.stroke();
             });
         });

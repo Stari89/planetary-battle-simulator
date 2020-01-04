@@ -1,7 +1,6 @@
 import { Injectable } from '../ioc/injector';
 import PlanetFactory from './planet.factory';
 import StarfieldFactory from './starfield.factory';
-import GridComponent, { GridWeight } from '../components/grid.component';
 import TransformComponent from '../components/transform.component';
 import SpriteComponent from '../components/sprite.component';
 import splashSrc from '../assets/splash.jpg';
@@ -10,12 +9,14 @@ import Vector2 from '../util/vector-2';
 import CameraComponent from '../components/camera.component';
 import { Luminosity } from '../components/starfield.component';
 import Entity from '../entity/entity';
+import GridFactory from './grid.factory';
 
 @Injectable()
 export default class SceneFactory {
     constructor(
         private planetFactory: PlanetFactory,
         private starfieldFactory: StarfieldFactory,
+        private gridFactory: GridFactory,
         private canvasProvider: CanvasProvider
     ) {}
 
@@ -27,7 +28,7 @@ export default class SceneFactory {
         entities.push(this.starfieldFactory.generateStarfield(10, Luminosity.Bright));
         entities.push(this.starfieldFactory.generateStarfield(100, Luminosity.Normal));
         entities.push(this.starfieldFactory.generateStarfield(1000, Luminosity.Dim));
-        entities.push(this.generateGrid(100, GridWeight.strong));
+        entities.push(this.gridFactory.generateGrid());
 
         const solarSystem = this.planetFactory.generateSolarSystem();
         solarSystem.forEach(item => {
@@ -41,16 +42,6 @@ export default class SceneFactory {
         entities.push(this.generateCamera());
         entities.push(this.generateSplash());
         return entities;
-    }
-
-    private generateGrid(resolution: number, weight: GridWeight): Entity {
-        const gridComponent = new GridComponent({
-            resolution: resolution,
-            weight: weight
-        });
-        const grid = new Entity();
-        grid.push(gridComponent);
-        return grid;
     }
 
     private generateCamera(): Entity {

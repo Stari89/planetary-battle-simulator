@@ -14,6 +14,8 @@ import CameraSystem from './systems/camera.system';
 import StarfieldSystem from './systems/starfield.system';
 import PolygonSystem from './systems/polygon.system';
 import TrailSystem from './systems/trail.system';
+import GridFactory from './factories/grid.factory';
+import ColorFactory from './factories/color.factory';
 
 @Injectable()
 export default class CanvasApp {
@@ -22,10 +24,12 @@ export default class CanvasApp {
         private inpurProvider: InputProvider,
         private canvasProvider: CanvasProvider,
         private entityContainer: EntityContainer,
-        private sceneFactory: SceneFactory,
         private sceneProvider: SceneProvider,
+        private colorFactory: ColorFactory,
+        private sceneFactory: SceneFactory,
         private planetFactory: PlanetFactory,
         private starfieldFactory: StarfieldFactory,
+        private gridFactory: GridFactory,
         private starfieldSystem: StarfieldSystem,
         private gridSystem: GridSystem,
         private planetSystem: GravitySystem,

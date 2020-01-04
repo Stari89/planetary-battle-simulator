@@ -16,8 +16,8 @@ export default class CameraSystem implements OnUpdate {
     ) {}
 
     public onUpdate(loopInfo: ILoopInfo) {
-        this.entityContainer.getEntitiesWithComponents(TransformComponent, CameraComponent).forEach(entity => {
-            const transformComponent = entity.get(TransformComponent);
+        this.entityContainer.getEntitiesWithComponents(TransformComponent, CameraComponent).forEach(cameraEntity => {
+            const transformComponent = cameraEntity.get(TransformComponent);
             if (this.inputProvider.MouseState.pressedButtons.some(b => b === 0)) {
                 transformComponent.position = transformComponent.position.subtract(
                     this.inputProvider.MouseState.deltaPosition.scale(1 / transformComponent.scale.x)
@@ -36,6 +36,13 @@ export default class CameraSystem implements OnUpdate {
                     this.inputProvider.MouseState.scrollDelta.y > 0 ? 0.8 : 1.25
                 );
             }
+
+            const cameraComponent = cameraEntity.get(CameraComponent);
+            cameraComponent.viewFramePosition = this.canvasProvider.ViewSize.scale(-0.5)
+                .scale(1 / transformComponent.scale.x)
+                .add(transformComponent.position);
+
+            cameraComponent.viewFrameSize = this.canvasProvider.ViewSize.scale(1 / transformComponent.scale.x);
         });
     }
 }
