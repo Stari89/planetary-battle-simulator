@@ -1,9 +1,10 @@
 import { Injectable } from '../ioc/injector';
 import CanvasProvider from '../providers/canvas.provider';
-import StarfieldComponent, { Luminosity } from '../components/starfield.component';
 import TransformComponent from '../components/transform.component';
 import Vector2 from '../util/vector-2';
 import Entity from '../entity/entity';
+import Color, { ColorChannelBrightness } from '../util/color';
+import BackgroundComponent, { Paralax } from '../components/background.component';
 
 @Injectable()
 export default class StarfieldFactory {
@@ -13,25 +14,40 @@ export default class StarfieldFactory {
         this.starfieldSize = canvasProvider.ViewSize;
     }
 
-    generateStarfield(ppm: number, luminosity: Luminosity): Entity {
+    generateStarfieldBackground(ppm: number, starColor: Color): Entity {
         const img = new Image();
-        img.src = this.generateImage(ppm, luminosity);
-        const starfield = new StarfieldComponent({
+        img.src = this.generateStarfieldImage(ppm, starColor);
+        let paralax: Paralax;
+        switch (starColor.alpha) {
+            case ColorChannelBrightness._3:
+                paralax = Paralax.Medium;
+                break;
+            case ColorChannelBrightness._2:
+                paralax = Paralax.Far;
+                break;
+            case ColorChannelBrightness._1:
+                paralax = Paralax.VeryFar;
+                break;
+            default:
+                paralax = Paralax.Near;
+                break;
+        }
+
+        const backgroundComponent = new BackgroundComponent({
             image: img,
             cutoutSize: this.starfieldSize,
-            luminosity: luminosity,
-            tileSize: this.starfieldSize
+            tileSize: this.starfieldSize,
+            paralax: paralax
         });
-        const transform = new TransformComponent({ scale: this.starfieldSize });
-
+        const transformComponent = new TransformComponent({ scale: this.starfieldSize });
         const entity = new Entity();
-        entity.push(starfield);
-        entity.push(transform);
+        entity.push(backgroundComponent);
+        entity.push(transformComponent);
 
         return entity;
     }
 
-    private generateImage(ppm: number, luminosity: Luminosity): string {
+    private generateStarfieldImage(ppm: number, color: Color): string {
         const view = this.starfieldSize;
 
         const canvas = document.createElement('canvas');
@@ -50,31 +66,19 @@ export default class StarfieldFactory {
             ctx.beginPath();
             ctx.moveTo(star.x, star.y);
             ctx.lineTo(star.x + 1, star.y);
-            ctx.strokeStyle = `#FFFFFF${luminosity}`;
+            ctx.strokeStyle = color.toString();
             ctx.stroke();
 
             ctx.beginPath();
-            ctx.moveTo(star.x - 1, star.y);
-            ctx.lineTo(star.x, star.y);
-            ctx.strokeStyle = `#FF00FF${luminosity}`;
+            ctx.moveTo(star.x - 1, star.y - 1);
+            ctx.lineTo(star.x, star.y - 1);
+            ctx.strokeStyle = color.ghostRed.toString();
             ctx.stroke();
 
             ctx.beginPath();
-            ctx.moveTo(star.x + 1, star.y);
-            ctx.lineTo(star.x + 2, star.y);
-            ctx.strokeStyle = `#00FFFF${luminosity}`;
-            ctx.stroke();
-
-            ctx.beginPath();
-            ctx.moveTo(star.x, star.y - 1);
-            ctx.lineTo(star.x + 1, star.y - 1);
-            ctx.strokeStyle = `#FF00FF${luminosity}`;
-            ctx.stroke();
-
-            ctx.beginPath();
-            ctx.moveTo(star.x, star.y + 1);
-            ctx.lineTo(star.x + 1, star.y + 1);
-            ctx.strokeStyle = `#00FFFF${luminosity}`;
+            ctx.moveTo(star.x + 1, star.y + 1);
+            ctx.lineTo(star.x + 2, star.y + 1);
+            ctx.strokeStyle = color.ghostBlue.toString();
             ctx.stroke();
         }
         return canvas.toDataURL('image/png');

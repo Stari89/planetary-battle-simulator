@@ -1,35 +1,36 @@
 import { IComponent } from './component';
 import Vector2 from '../util/vector-2';
 
-export default class StarfieldComponent implements IComponent {
+export default class BackgroundComponent implements IComponent {
     public tileSize: Vector2;
-    public luminosity: Luminosity;
     public image: HTMLImageElement;
     public cutoutPosition: Vector2;
     public cutoutSize: Vector2;
     public offset: Vector2;
+    public paralax: Paralax;
 
     constructor(
         options: {
             tileSize?: Vector2;
-            luminosity?: Luminosity;
             image?: HTMLImageElement;
             cutoutPosition?: Vector2;
             cutoutSize?: Vector2;
             offset?: Vector2;
+            paralax?: Paralax;
         } = {}
     ) {
         this.tileSize = options.tileSize || new Vector2(0, 0);
-        (this.luminosity = options.luminosity || Luminosity.Dim),
-            (this.image = options.image || null),
-            (this.cutoutPosition = options.cutoutPosition || new Vector2(0, 0));
+        this.image = options.image || null;
+        this.cutoutPosition = options.cutoutPosition || new Vector2(0, 0);
         this.cutoutSize = options.cutoutSize || new Vector2(0, 0);
         this.offset = options.offset || new Vector2(0, 0);
+        this.paralax = options.paralax || Paralax.Near;
     }
 }
 
-export enum Luminosity {
-    Dim = '22',
-    Normal = '66',
-    Bright = 'FF'
+export enum Paralax {
+    Near = 1.0,
+    Medium = 0.5,
+    Far = 0.25,
+    VeryFar = 0.125
 }

@@ -11,11 +11,11 @@ import GridSystem from './systems/grid.system';
 import StarfieldFactory from './factories/starfield.factory';
 import SceneFactory from './factories/scene.factory';
 import CameraSystem from './systems/camera.system';
-import StarfieldSystem from './systems/starfield.system';
 import PolygonSystem from './systems/polygon.system';
 import TrailSystem from './systems/trail.system';
 import GridFactory from './factories/grid.factory';
 import ColorFactory from './factories/color.factory';
+import BackgroundSystem from './systems/background.system';
 
 @Injectable()
 export default class CanvasApp {
@@ -30,7 +30,7 @@ export default class CanvasApp {
         private planetFactory: PlanetFactory,
         private starfieldFactory: StarfieldFactory,
         private gridFactory: GridFactory,
-        private starfieldSystem: StarfieldSystem,
+        private backgroundSystem: BackgroundSystem,
         private gridSystem: GridSystem,
         private planetSystem: GravitySystem,
         private spriteSystem: SpriteSystem,

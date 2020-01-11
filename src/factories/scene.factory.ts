@@ -7,9 +7,10 @@ import splashSrc from '../assets/splash.jpg';
 import CanvasProvider from '../providers/canvas.provider';
 import Vector2 from '../util/vector-2';
 import CameraComponent from '../components/camera.component';
-import { Luminosity } from '../components/starfield.component';
 import Entity from '../entity/entity';
 import GridFactory from './grid.factory';
+import ColorFactory from './color.factory';
+import { ColorChannelBrightness } from '../util/color';
 
 @Injectable()
 export default class SceneFactory {
@@ -17,17 +18,30 @@ export default class SceneFactory {
         private planetFactory: PlanetFactory,
         private starfieldFactory: StarfieldFactory,
         private gridFactory: GridFactory,
-        private canvasProvider: CanvasProvider
+        private canvasProvider: CanvasProvider,
+        private colorFactory: ColorFactory
     ) {}
 
     generateSimulationScene(): Array<Entity> {
         const entities: Array<Entity> = [];
 
         entities.push(this.generateCamera());
+        entities.push(
+            this.starfieldFactory.generateStarfieldBackground(10, this.colorFactory.getWhite(ColorChannelBrightness._3))
+        );
+        entities.push(
+            this.starfieldFactory.generateStarfieldBackground(
+                100,
+                this.colorFactory.getWhite(ColorChannelBrightness._2)
+            )
+        );
+        entities.push(
+            this.starfieldFactory.generateStarfieldBackground(
+                1000,
+                this.colorFactory.getWhite(ColorChannelBrightness._1)
+            )
+        );
 
-        entities.push(this.starfieldFactory.generateStarfield(10, Luminosity.Bright));
-        entities.push(this.starfieldFactory.generateStarfield(100, Luminosity.Normal));
-        entities.push(this.starfieldFactory.generateStarfield(1000, Luminosity.Dim));
         entities.push(this.gridFactory.generateGrid());
 
         const solarSystem = this.planetFactory.generateSolarSystem();
