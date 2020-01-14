@@ -4,8 +4,8 @@
     "description": "Component Entity System",
     "main": "index.js",
     "scripts": {
-        "dev": "webpack --mode development",
-        "build": "webpack --mode production"
+        "build": "webpack --config webpack.config.development.js",
+        "build-prod": "webpack --config webpack.config.production.js"
     },
     "author": "Damjan Kovačič",
     "license": "ISC",
@@ -17,7 +17,8 @@
         "ts-loader": "^6.2.1",
         "typescript": "^3.7.4",
         "webpack": "^5.0.0-beta.11",
-        "webpack-cli": "^3.3.10"
+        "webpack-cli": "^3.3.10",
+        "webpack-merge": "^4.2.2"
     },
     "dependencies": {
         "reflect-metadata": "^0.1.13"
